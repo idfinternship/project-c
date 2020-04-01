@@ -38,7 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
+<<<<<<< HEAD
     'postfeed.apps.PostfeedConfig',
+=======
+    # ourapps
+    'profiles',
+
+
+>>>>>>> e22ae5be4f12f6b024ae1f189eb7a4f30fa8ac6a
 ]
 
 MIDDLEWARE = [
