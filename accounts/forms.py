@@ -1,10 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-<<<<<<< HEAD
 
-=======
 from django.contrib.auth.forms import UserCreationForm
-
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required = True)
@@ -24,4 +21,3 @@ class RegistrationForm(UserCreationForm):
             if commit:
                 user.save()
                 return user
->>>>>>> ef59fdf0afdd0725cd4ca6f75261fc936f782838
