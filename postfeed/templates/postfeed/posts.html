@@ -1,5 +1,8 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
 {% if post_list %}
-<a href="{% url 'postfeed:create' %}">Create Post</a>
     <ul>
         {% for post in user.post.all %}
             <li>{{ post.body }}</li>
@@ -8,3 +11,5 @@
 {% else %}
     <p>No posts are available.</p>
 {% endif %}
+<a href="{% url 'postfeed:create' %}">Create Post</a>
+{% endblock %}
