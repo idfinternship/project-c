@@ -21,5 +21,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
     path('posts/', include('postfeed.urls')),
+<<<<<<< HEAD
     path('accounts/', include('accounts.urls')),
+=======
+    path('accounts/', include ('accounts.urls')),
+>>>>>>> ef59fdf0afdd0725cd4ca6f75261fc936f782838
 ]
