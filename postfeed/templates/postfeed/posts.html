@@ -1,6 +1,7 @@
 {% if post_list %}
+<a href="{% url 'postfeed:create' %}">Create Post</a>
     <ul>
-        {% for post in post_list %}
+        {% for post in user.post.all %}
             <li>{{ post.body }}</li>
         {% endfor %}
     </ul>

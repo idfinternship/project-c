@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from .models import Post
@@ -6,7 +6,6 @@ from .forms import PostCreateForm
 
 from . import views
 
-# Create your views here.
 def index(response):
     return HttpResponse("postfeed index response")
 
@@ -15,8 +14,14 @@ def detail(request):
 
 def create(request):
     form = PostCreateForm(request.POST or None)
+
     if form.is_valid():
-        form.save()
+        body = form.cleaned_data["body"]
+        post = Post(body=body)
+        post.save()
+        request.user.post.add(post)
+
+        return redirect('postfeed:posts')
 
     return render(request, 'postfeed/create.html', context={'form': form})
 
