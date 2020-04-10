@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('main.urls')),
     path('posts/', include('postfeed.urls')),
     path('accounts/', include('accounts.urls')),
+    path('profile/', include('profiles.urls')),
 ]
