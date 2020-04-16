@@ -3,11 +3,37 @@
 {% block content %}
 
 {% if post_list %}
-    <ul>
-        {% for post in user.post.all %}
-            <li>{{ post.body }}</li>
-        {% endfor %}
-    </ul>
+{% for post in user.post.all %}
+<div class="container mt-2">
+  <div class="col-md-5">
+    <div class="card card-default">
+      <div class="card-body">
+        <section class="post-heading">
+          <div class="row">
+            <div class="col-md-11">
+              <div class="media">
+                <div class="media-left">
+                  <a href="#">
+                    <img class="media-object photo-profile" src="https://maestroselectronics.com/wp-content/uploads/bfi_thumb/blank-user-355ba8nijgtrgca9vdzuv4.jpg" width="40" height="40" alt="...">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <a href="#" class="anchor-username">
+                    <h4 class="media-heading">{{ user.get_username }}</h4>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="post-body">
+          <p>{{ post.body }}</p>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
 {% else %}
     <p>No posts are available.</p>
 {% endif %}
