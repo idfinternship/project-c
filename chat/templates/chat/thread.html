@@ -1,4 +1,4 @@
-
+{% extends 'main/base.html' %}
 
 {% block content %}
 <h3>Chatting With {% if user != object.first %}{{ object.first }}{% else %}{{ object.second }}{% endif %}</h3>
@@ -18,8 +18,6 @@
 {{ form.as_p }}
 <input type="Submit" name="submit" value="Send" onClick="window.location.reload();" />
 </form>
-
-
 {% endblock %}
 
 {% block script %}
