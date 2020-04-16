@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'postfeed.apps.PostfeedConfig',
     'accounts',
+    'chat',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +57,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'ourproject.urls'
+ASGI_APPLICATION = "ourproject.routing.application"
 
 TEMPLATES = [
     {

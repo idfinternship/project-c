@@ -23,5 +23,5 @@ urlpatterns = [
     path('posts/', include('postfeed.urls')),
     path('accounts/', include('accounts.urls')),
     path('profile/', include('profiles.urls')),
-
+    path('chat/', include('chat.urls')),
 ]
