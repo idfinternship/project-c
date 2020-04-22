@@ -23,7 +23,7 @@
       <a class="nav-link" href="{% url 'postfeed:posts' %}">Posts</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{% url 'profiles:profile' %}">Profile</a>
+      <a class="nav-link" href="{% url 'profiles:profile' user.username %}">Profile</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'chat:inbox' %}">Chat</a>
