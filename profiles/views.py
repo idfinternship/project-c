@@ -6,10 +6,15 @@ from .forms import ProfileEditForm
 # Create your views here.
 
 
-def profile(request):
-    args = {'user': request.user}
-    return render(request, 'profile/profile.html', args)
+ #def profile(request):
+ #   args = {'searched_user': request.user}
+ #   return render(request, 'profile/profile.html', args)
 
+def profile(request, username):
+    current_user = request.user
+    searched_user = User.objects.get(username=username)
+    args = {'searched_user': searched_user, 'current_user': current_user}
+    return render(request, 'profile/profile.html', args)
 
 def profile_edit(request):
     if request.method == 'POST':

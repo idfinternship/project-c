@@ -5,12 +5,14 @@ Profile
 {% endblock %}
 
 {% block content %}
-     <li> User id: {{ user.id }}</li>
-     <li> Username: {{ user }}</li>
-     <li> First name: {{ user.first_name }}</li>
-     <li> Last name: {{ user.last_name }}</li>
-     <li> Email: {{ user.email }} </li>
+     <li> User id: {{ searched_user.id }}</li>
+     <li> Username: {{ searched_user }}</li>
+     <li> First name: {{ searched_user.first_name }}</li>
+     <li> Last name: {{ searched_user.last_name }}</li>
+     <li> Email: {{ searched_user.email }} </li>
 
+{% if searched_user.username == current_user.username %}
 <a class="btn btn-primary" href="/profile/edit">Edit Profile</a>
 <a class="btn btn-primary" href="/profile/change_password">Change password</a>
+{% endif %}
 {% endblock %}
