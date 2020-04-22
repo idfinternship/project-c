@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from .models import Post
 from .forms import PostCreateForm
 
 from . import views
-
+@login_required
 def create(request):
     form = PostCreateForm(request.POST or None)
 
@@ -20,6 +21,7 @@ def create(request):
 
     return render(request, 'postfeed/create.html', context={'form': form})
 
+@login_required
 def posts(request, username):
     user = User.objects.get(username=username)
     posts = user.post.all()
