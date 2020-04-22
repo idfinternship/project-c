@@ -20,7 +20,7 @@
       <a class="nav-link" href="{% url 'accounts:index' %}">Accounts</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{% url 'postfeed:posts' %}">Posts</a>
+      <a class="nav-link" href="{% url 'postfeed:posts' user.username %}">Posts</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'profiles:profile' user.username %}">Profile</a>

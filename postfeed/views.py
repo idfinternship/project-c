@@ -1,16 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 from .models import Post
 from .forms import PostCreateForm
 
 from . import views
-
-def index(response):
-    return HttpResponse("postfeed index response")
-
-def detail(request):
-    pass
 
 def create(request):
     form = PostCreateForm(request.POST or None)
@@ -25,7 +20,7 @@ def create(request):
 
     return render(request, 'postfeed/create.html', context={'form': form})
 
-def posts(request):
-    post_list = Post.objects.all()
-
-    return render(request, 'postfeed/posts.html', context={'post_list': post_list})
+def posts(request, username):
+    user = User.objects.get(username=username)
+    posts = user.post.all()
+    return render(request, 'postfeed/posts.html', context={'user': user, 'posts': posts})
