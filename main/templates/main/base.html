@@ -20,13 +20,19 @@
       <a class="nav-link" href="{% url 'accounts:index' %}">Accounts</a>
     </li>
     <li class="nav-item">
+      {% if not user.is_anonymous %}
       <a class="nav-link" href="{% url 'postfeed:posts' user.username %}">Posts</a>
+      {% endif %}
     </li>
     <li class="nav-item">
+      {% if not user.is_anonymous %}
       <a class="nav-link" href="{% url 'profiles:profile' user.username %}">Profile</a>
+      {% endif %}
     </li>
     <li class="nav-item">
+      {% if not user.is_anonymous %}
       <a class="nav-link" href="{% url 'chat:inbox' %}">Chat</a>
+      {% endif %}
     </li>
   </ul>
 </nav>

@@ -23,4 +23,5 @@ def create(request):
 def posts(request, username):
     user = User.objects.get(username=username)
     posts = user.post.all()
+
     return render(request, 'postfeed/posts.html', context={'user': user, 'posts': posts})
