@@ -19,7 +19,7 @@
                 </div>
                 <div class="media-body">
                   <a href="#" class="anchor-username">
-                    <h4 class="media-heading">{{ user.get_username }}</h4>
+                    <h4 class="media-heading">{{ searched_user.get_username }}</h4>
                   </a>
                 </div>
               </div>
@@ -28,6 +28,13 @@
         </section>
         <section class="post-body">
           <p>{{ post.body }}</p>
+        </section>
+        <section class="post-footer">
+          <div class="post-footer-option container">
+            <ul class="list-unstyled">
+              <li>0 likes <a href="#"><i class="glyphicon glyphicon-thumbs-up"></i>Like</a></li>
+            </ul>
+          </div>
         </section>
       </div>
     </div>
@@ -41,3 +48,7 @@
 <a href="{% url 'postfeed:create' %}">Create Post</a>
 {% endif %}
 {% endblock %}
+
+<style>
+
+</style>
