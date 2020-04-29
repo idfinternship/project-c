@@ -33,9 +33,15 @@
       {% if not user.is_anonymous %}
       <a class="nav-link" href="{% url 'chat:inbox' %}">Chat</a>
       {% endif %}
-    </li>
   </ul>
+  <form method="get" action="{% url 'profiles:search' %}" class="form-inline my-2 my-lg-0">
+    <input name="q" value="{{request.GET.q}}" placeholder="Search" class="form-control mr-sm-2"/>
+    <button class="btn btn-primary" type="submit" >
+        Search
+    </button>
+</form>
 </nav>
+
 {% block content %}
 
 {% endblock %}
