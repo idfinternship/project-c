@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-from .forms import ProfileEditForm
+from .forms import ProfileEditForm, UserProfileEditForm
 
 
 # Create your views here.
@@ -23,13 +23,17 @@ def profile(request, username):
 
 def profile_edit(request):
     if request.method == 'POST':
-        form = ProfileEditForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect('/profile')
+        user_form = ProfileEditForm(request.POST, instance=request.user)
+        profile_form = UserProfileEditForm(request.POST, instance=request.user.userprofile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            url = "/profile/" + str(request.user.username)
+            return redirect(url)
     else:
-        form = ProfileEditForm(instance=request.user)
-        args = {'form': form}
+        user_form = ProfileEditForm(instance=request.user)
+        profile_form = UserProfileEditForm(instance=request.user.userprofile)
+        args = {'form': user_form, 'profile_form': profile_form}
         return render(request, 'profile/edit_profile.html', args)
 
 
@@ -39,7 +43,8 @@ def change_password(request):
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
-            return redirect('/profile')
+            url = "/profile/" + str(request.user.username)
+            return redirect(url)
         else:
             return redirect('profile/change/password')
     else:
