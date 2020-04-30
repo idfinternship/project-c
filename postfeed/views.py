@@ -1,12 +1,11 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from .models import Post
 from .forms import PostCreateForm
 
-from . import views
+
 @login_required
 def create(request):
     form = PostCreateForm(request.POST or None)
@@ -21,10 +20,12 @@ def create(request):
 
     return render(request, 'postfeed/create.html', context={'form': form})
 
+
 def delete_post(request, pk):
     post = Post.objects.get(pk=pk)
     post.delete()
     return redirect('postfeed:posts', username=request.user.username)
+
 
 @login_required
 def posts(request, username):
@@ -32,4 +33,3 @@ def posts(request, username):
     posts = searched_user.post.all().order_by('-creation_date')
 
     return render(request, 'postfeed/posts.html', context={'searched_user': searched_user, 'posts': posts})
-
