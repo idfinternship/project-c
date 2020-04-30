@@ -6,12 +6,13 @@ Edit Profile
 
 {% block content %}
 <div>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
      {% csrf_token %}
      {{ form.as_p }}
      {{ profile_form.as_p }}
-     <button type="submit">Change</button>
+
+     <button class="btn btn-primary" type="submit">Change</button>
 </form>
 <br>
-    </div>
+</div>
 {% endblock %}
