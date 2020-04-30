@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
-=======
-from django.shortcuts import render, redirect
->>>>>>> 12dc1c6fd6e50d7a342fa79543b16047ccd79d14
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
@@ -39,7 +35,7 @@ def posts(request, username):
     posts = searched_user.post.all().order_by('-creation_date')
 
     return render(request, 'postfeed/posts.html', context={'searched_user': searched_user, 'posts': posts})
-<<<<<<< HEAD
+
 
 def like_post(request, pk):
     user = request.user
@@ -52,6 +48,3 @@ def like_post(request, pk):
     else:
         post.likes += 1
         post.users_reaction.add(user)
-
-=======
->>>>>>> 12dc1c6fd6e50d7a342fa79543b16047ccd79d14
