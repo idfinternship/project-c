@@ -14,10 +14,11 @@ class ProfileEditForm(UserChangeForm):
             'email',
         )
 
+
 class UserProfileEditForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields =(
+        fields = (
             'age',
             'gender',
             'icon',

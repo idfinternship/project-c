@@ -7,8 +7,7 @@ Profile
 {% block content %}
 {% for user in users %}
 <li>
-    <a href="{% url 'profiles:profile' username=user.username %}"</a>
-    {{user.username}}
+    <a href="{% url 'profiles:profile' username=user.username %}">{{user.username}}</a>
 </li>
 {% endfor %}
 {% endblock %}

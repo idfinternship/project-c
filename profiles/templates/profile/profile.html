@@ -15,9 +15,6 @@ Profile
      <li>Age: {{ searched_user.userprofile.age }}</li>
      <li>Gender: {{ searched_user.userprofile.gender }}</li>
 
-
-<br>
-
 {% if searched_user.username == current_user.username %}
 <a class="btn btn-primary" href="{% url 'profiles:profile_edit' %}">Edit Profile</a>
 <a class="btn btn-primary" href="{% url 'profiles:change_password' %}">Change password</a>
