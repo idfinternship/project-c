@@ -9,21 +9,54 @@
 
 {% endfor %}
 </ul>
-<style>
-  .hide { position:absolute; top:-1px; left:-1px; width:1px; height:1px; }
-</style>
-<iframe name="hiddenFrame" class="hide"></iframe>
-<form action="" method="POST" add target="hiddenFrame">
-{% csrf_token %}
-{{ form.as_p }}
-<input type="Submit" name="submit" value="Send" onClick="window.location.reload();" />
+<form id='form' method='POST'> {% csrf_token %}
+	<input type='hidden' id='myUsername' value='{{ user.username }}' />
+{{form.as_p }}
+<input type='submit' class='btn btn-primary' value='Send'/>
 </form>
-{% endblock %}
 
-{% block script %}
 
 <script>
 // websocket scripts
+
+console.log(window.location)
+var loc = window.location
+var formData = $("#form")
+var msgInput = $("#id_message")
+var chatHolder = $("#chat-items")
+var me = $("#myUsername").val()
+
+var wsStart = 'ws://'
+if (loc.protocol == 'https:'){
+	wsStart ='wss://'
+}
+var endpoint = wsStart + loc.host + loc.pathname
+var socket = new WebSocket(endpoint)
+
+socket.onmessage = function(e){
+	console.log("message", e)
+	var chatDataMsg = JSON.parse(e.data)
+	chatHolder.append("<li>" + chatDataMsg.username+ ": " + chatDataMsg.message + "</li>")
+}
+socket.onopen= function(e){
+	console.log("open", e)
+	formData.submit(function(event){
+		event.preventDefault()
+		var msgText = msgInput.val()
+		//chatHolder.append("<li>" + me + ": " + msgText + "</li>")
+		var finalData = {
+			'message': msgText
+		}
+		socket.send(JSON.stringify(finalData))
+		formData[0].reset()
+	})
+}
+socket.onerror= function(e){
+	console.log("error", e)
+}
+socket.onclose= function(e){
+	console.log("close", e)
+}
 
 </script>
 {% endblock %}

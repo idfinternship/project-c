@@ -7,5 +7,6 @@
     {% else %}
         <a href="{% url 'accounts:login_url' %}">Login</a>
         <a href="{% url 'accounts:register_url' %}">Register</a>
+        <a href="{% url 'accounts:password_reset' %}">Password reset</a>
     {% endif %}
 {% endblock %}
