@@ -6,12 +6,6 @@ from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from .forms import ProfileEditForm, UserProfileEditForm
 
-# Create your views here.
-
-
-# def profile(request):
-#   args = {'searched_user': request.user}
-#   return render(request, 'profile/profile.html', args)
 
 def profile(request, username):
     current_user = request.user
