@@ -6,7 +6,6 @@ from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from .forms import ProfileEditForm, UserProfileEditForm
 
-
 # Create your views here.
 
 
@@ -24,7 +23,7 @@ def profile(request, username):
 def profile_edit(request):
     if request.method == 'POST':
         user_form = ProfileEditForm(request.POST, instance=request.user)
-        profile_form = UserProfileEditForm(request.POST, instance=request.user.userprofile)
+        profile_form = UserProfileEditForm(request.POST, request.FILES,  instance=request.user.userprofile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -58,8 +57,8 @@ def user_search(request):
     if not query:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     users = User.objects.filter(Q(username__icontains=query))
+
     if not users:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return render(request, 'profile/search_results.html', {'users': users})
-
 

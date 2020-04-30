@@ -134,6 +134,8 @@ CHANNEL_LAYERS = {
         },
     },
 }
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'profiles/media/')
 
 LOGIN_REDIRECT_URL = '/accounts/dashboard'
 LOGOUT_URL = '/accounts/logout/'
