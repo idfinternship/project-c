@@ -6,5 +6,5 @@ app_name = 'postfeed'
 urlpatterns = [
     path('profile/<username>/posts', views.posts, name='posts'),
     path('create/', views.create, name='create'),
-    #path('delete_post/', views.delete_post, name='delete_post'),
+    path('delete_post/<pk>', views.delete_post, name='delete_post'),
 ]
