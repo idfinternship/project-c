@@ -21,11 +21,10 @@ def create(request):
 
     return render(request, 'postfeed/create.html', context={'form': form})
 
-#def delete_post(request, pk): make new form for this thing
-#    user = request.user
-#    post = Post.objects.get(pk=pk)
-#    post.delete()
-#   return redirect('postfeed:posts', username=request.user.username)
+def delete_post(request, pk):
+    post = Post.objects.get(pk=pk)
+    post.delete()
+    return redirect('postfeed:posts', username=request.user.username)
 
 @login_required
 def posts(request, username):

@@ -24,6 +24,9 @@
                 </div>
               </div>
             </div>
+            <div>
+              <a href="{% url 'postfeed:delete_post' post.pk %} " onclick="return confirm('Are you sure you want to delete this?')"><i class="fas fa-times"></i></a>
+            </div>
           </div>
         </section>
         <section class="post-body">
@@ -32,7 +35,7 @@
         <section class="post-footer">
           <div class="post-footer-option container">
             <ul class="list-unstyled">
-              <li>0 likes <a href="#"><i class="glyphicon glyphicon-thumbs-up"></i>Like</a></li>
+              <li>0 likes<a href="#"><i class="glyphicon glyphicon-thumbs-up"></i>Like</a></li>
             </ul>
           </div>
         </section>
