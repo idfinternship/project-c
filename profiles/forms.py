@@ -19,5 +19,6 @@ class UserProfileEditForm(forms.ModelForm):
         model = UserProfile
         fields =(
             'age',
-            'gender'
+            'gender',
+            'icon',
         )

@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 
 from . import views
@@ -10,5 +12,4 @@ urlpatterns = [
     path('profile/change_password/', views.change_password, name='change_password'),
     path('profile/<username>', views.profile, name='profile'),
     path('profile/search_results/', views.user_search, name='search')
-
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

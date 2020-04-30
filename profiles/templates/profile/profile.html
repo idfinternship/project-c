@@ -6,7 +6,7 @@ Profile
 
 {% block content %}
 <p>User info:</p>
-     <li> User id: {{ searched_user.id }}</li>
+     <img src="{{ searched_user.userprofile.icon.url }}" width="200px">
      <li> Username: {{ searched_user }}</li>
      <li> First name: {{ searched_user.first_name }}</li>
      <li> Last name: {{ searched_user.last_name }}</li>
@@ -14,6 +14,8 @@ Profile
 <p>Additional user info:</p>
      <li>Age: {{ searched_user.userprofile.age }}</li>
      <li>Gender: {{ searched_user.userprofile.gender }}</li>
+
+
 <br>
 
 {% if searched_user.username == current_user.username %}
