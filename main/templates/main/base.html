@@ -12,12 +12,10 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-light">
-  <ul class="navbar-nav">
+  <div class="container-fluid">
+  <ul class="navbar navbar-nav navbar-left ">
     <li class="nav-item">
       <a class="nav-link" href="{% url 'main:home' %}">Home</a> {# make home page later.. #}
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'accounts:index' %}">Accounts</a>
     </li>
     <li class="nav-item">
       {% if not user.is_anonymous %}
@@ -33,8 +31,8 @@
       {% if not user.is_anonymous %}
       <a class="nav-link" href="{% url 'chat:inbox' %}">Chat</a>
       {% endif %}
-  </ul>
-  {% if not user.is_anonymous %}
+      {% if not user.is_anonymous %}
+    </li>
   <form method="get" action="{% url 'profiles:search' %}" class="form-inline my-2 my-lg-0">
     <input name="q" value="{{request.GET.q}}" placeholder="Search" class="form-control mr-sm-2"/>
     <button class="btn btn-primary" type="submit" >
@@ -42,6 +40,29 @@
     </button>
 </form>
   {% endif %}
+
+  </ul>
+
+  <ul class="nav navbar-nav navbar-right">
+    <li class="nav-item">
+      {% if  user.is_anonymous %}
+      <a class="nav-link "  href="{% url 'accounts:login_url'  %}">Login In</a>
+      {% endif %}
+    </li>
+    <li class="nav-item">
+      {% if  user.is_anonymous %}
+      <a class="nav-link" href="{% url 'accounts:register_url'  %}">Register</a>
+      {% endif %}
+    </li>
+     <li class="nav-item">
+      {% if not user.is_anonymous %}
+      <a class="nav-link "  href="{% url 'accounts:logout'  %}">Logout</a>
+      {% endif %}
+    </li>
+  </ul>
+
+
+    </div>
 </nav>
 
 {% block content %}

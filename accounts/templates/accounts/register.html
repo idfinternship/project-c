@@ -1,10 +1,12 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+<div class="container-fluid">
 <h1>Create New Account</h1>
-<form method="POST">
+<form class = "" method="POST">
     {% csrf_token %}
     {{form.as_p}}
-    <button>Register</button>
+    <button class="btn btn-danger">Register</button>
 </form>
+</div>
 {% endblock %}

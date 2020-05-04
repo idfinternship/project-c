@@ -1,10 +1,15 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-<h1>System Login</h1>
+<div class="container-fluid">
+<h1 >System Login</h1>
 <form method="POST">
     {% csrf_token %}
     {{form.as_p}}
-    <button>Login</button>
+    <button class="btn btn-success">Login</button>
+    <div>
+    <a href="{% url 'accounts:password_reset' %}">Forgot password?</a>
+    </div>
 </form>
+</div>
 {% endblock %}
