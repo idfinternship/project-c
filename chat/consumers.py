@@ -15,7 +15,6 @@ class ChatConsumer(AsyncConsumer):
 		self.thread_obj = thread_obj
 		chat_room = f"thread_{thread_obj.id}"
 		self.chat_room = chat_room
-		# await asyncio.sleep(30)
 		await self.channel_layer.group_add(
 			chat_room,
 			self.channel_name
