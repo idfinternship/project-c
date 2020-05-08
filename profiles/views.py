@@ -12,7 +12,7 @@ from .models import FriendRequest, UserProfile
 def profile(request, username):
     current_user = request.user
     searched_user = User.objects.get(username=username)
-    #
+    #friend functionality
     sent_friend_requests = FriendRequest.objects.filter(from_user=searched_user)
     rec_friend_requests = FriendRequest.objects.filter(to_user=searched_user)
 
@@ -27,7 +27,7 @@ def profile(request, username):
         if len(FriendRequest.objects.filter(
             from_user=request.user).filter(to_user=searched_user)) == 1:
             button_status = 'friend_request_sent'
-    #
+    #end of friend functionality
     context = {
         'searched_user': searched_user,
         'current_user': current_user,
