@@ -14,7 +14,7 @@
 <nav class="navbar navbar-expand-sm bg-light">
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="{% url 'main:home' %}">Home</a> {# make home page later.. #}
+      <a class="nav-link" href="{% url 'main:home' %}">Home</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'accounts:index' %}">Accounts</a>
@@ -27,6 +27,11 @@
     <li class="nav-item">
       {% if not user.is_anonymous %}
       <a class="nav-link" href="{% url 'profiles:profile' user.username %}">Profile</a>
+      {% endif %}
+    </li>
+    <li class="nav-item">
+      {% if not user.is_anonymous %}
+      <a class="nav-link" href="{% url 'profiles:friends' user.username %}">Friends</a>
       {% endif %}
     </li>
     <li class="nav-item">

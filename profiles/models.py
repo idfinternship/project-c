@@ -17,6 +17,15 @@ class UserProfile(models.Model):
         return self.user.username
 
 
+class FriendRequest(models.Model):
+    to_user = models.ForeignKey(User, related_name='to_user', on_delete=models.CASCADE)
+    from_user = models.ForeignKey(User, related_name='from_user', on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "From {}, to {}".format(self.from_user.username, self.to_user.username)
+
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -26,11 +35,3 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()
-
-class FriendRequest(models.Model):
-    to_user = models.ForeignKey(User, related_name='to_user', on_delete=models.CASCADE)
-    from_user = models.ForeignKey(User, related_name='from_user', on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return "From {}, to {}".format(self.from_user.username, self.to_user.username)

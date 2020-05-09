@@ -12,7 +12,6 @@ from .models import FriendRequest, UserProfile
 def profile(request, username):
     current_user = request.user
     searched_user = User.objects.get(username=username)
-    #friend functionality
     sent_friend_requests = FriendRequest.objects.filter(from_user=searched_user)
     rec_friend_requests = FriendRequest.objects.filter(to_user=searched_user)
 
@@ -20,7 +19,7 @@ def profile(request, username):
     friends = searched_user_profile.friends.all()
 
     button_status = 'none'
-    if searched_user_profile not in request.user.userprofile.friends.all():
+    if searched_user.userprofile not in request.user.userprofile.friends.all():
         button_status = 'not_friend'
 
         #if sent friend request
@@ -81,6 +80,24 @@ def user_search(request):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return render(request, 'profile/search_results.html', {'users': users})
 
+
+def friends_view(request, username):
+    current_user = request.user
+    searched_user = User.objects.get(username=username)
+    sent_friend_requests = FriendRequest.objects.filter(from_user=searched_user)
+    rec_friend_requests = FriendRequest.objects.filter(to_user=searched_user)
+    friends = searched_user.userprofile.friends.all()
+
+    context = {
+        'searched_user': searched_user,
+        'current_user': current_user,
+        'friend_list': friends,
+        'sent_friend_requests': sent_friend_requests,
+        'rec_friend_requests': rec_friend_requests
+    }
+    return render(request, 'profile/friends.html', context)
+
+
 def send_friend_request(request, pk):
     user = get_object_or_404(User, pk=pk)
     frequest, created = FriendRequest.objects.get_or_create(
@@ -88,6 +105,7 @@ def send_friend_request(request, pk):
         to_user=user
     )
     return redirect('/')
+
 
 def cancel_friend_request(request, pk):
     user = get_object_or_404(User, pk=pk)
@@ -98,6 +116,7 @@ def cancel_friend_request(request, pk):
     frequest.delete()
     return redirect('/')
 
+
 def accept_friend_request(request, pk):
     from_user = get_object_or_404(User, pk=pk)
     frequest = FriendRequest.objects.filter(from_user=from_user, to_user=request.user).first()
@@ -107,6 +126,7 @@ def accept_friend_request(request, pk):
     user2.userprofile.friends.add(user1.userprofile)
     frequest.delete()
     return redirect('/')
+
 
 def delete_friend_request(request, pk):
     from_user = get_object_or_404(User, pk=pk)

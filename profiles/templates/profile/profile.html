@@ -16,32 +16,23 @@ Profile
      <li>Gender: {{ searched_user.userprofile.gender }}</li>
 
 {% if searched_user.username == current_user.username %}
-     <a class="btn btn-primary" href="{% url 'profiles:profile_edit' %}">Edit Profile</a>
-     <a class="btn btn-primary" href="{% url 'profiles:change_password' %}">Change password</a>
-
-     <p>Friends:</p>
-     {% for friend in friend_list %}
-          <a href="{% url 'profiles:profile' friend.user.username %}">{{ friend.user.username }}</a>
-     {% endfor %}
-     <p>Sent friend requests:</p>
-     <ul>
-          {% for s_request in sent_friend_requests %}
-               <li>{{ s_request.to_user.username }}</li>
-          {% endfor %}
-     </ul>
-     <p>Received friend requests:</p>
-     {% for r_request in rec_friend_requests %}
-          <p><a href="{% url 'profiles:profile' r_request.from_user.username %}">{{ friend.user.username }}</a></p>
-          <small><a class="btn btn-primary" href="{% url 'profiles:accept_friend_request' r_request.from_user.pk %}">Accept</a></small>
-          <small><a class="btn btn-warning" href="{% url 'profiles:delete_friend_request' r_request.from_user.pk %}">Ignore</a></small>
-     {% endfor %}
-
+     <div class="mt-2">
+          <a class="btn btn-primary" href="{% url 'profiles:profile_edit' %}">Edit Profile</a>
+          <a class="btn btn-primary" href="{% url 'profiles:change_password' %}">Change password</a>
+     </div>
 {% else %}
-     {% if button_status == 'not_friend' %}
-          <small><a class="btn btn-primary" href="{% url 'profiles:send_friend_request' searched_user.pk %}">Add friend</a></small>
-     {% elif button_status == 'friend_request_sent' %}
-          <small><a class="btn btn-warning" href="{% url 'profiles:cancel_friend_request' searched_user.pk %}">Cancel request</a></small>
-     {% endif %}
+     <div class="mt-2">
+          <a class="btn btn-secondary" href="{% url 'profiles:friends' searched_user.username %}">{{ searched_user.username }}'s friend list</a>
+     </div>
+
+     <div class="mt-2">
+          {% if button_status == 'not_friend' %}
+               <small><a class="btn btn-primary" href="{% url 'profiles:send_friend_request' searched_user.pk %}">Add friend</a></small>
+          {% elif button_status == 'friend_request_sent' %}
+               <small><a class="btn btn-warning" href="{% url 'profiles:cancel_friend_request' searched_user.pk %}">Cancel request</a></small>
+          {% endif %}
+     </div>
+
 
 {% endif %}
 {% endblock %}
