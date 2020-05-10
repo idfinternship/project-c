@@ -39,13 +39,14 @@ class ChatConsumer(AsyncConsumer):
 				'username': username
 			}
 			await self.create_chat_message(user, msg)
-			await self.channel_layer.group_send(
-				self.chat_room,
-				{
-					"type": "chat_message",
-					"text": json.dumps(myResponse)
-				}
-			)
+			if msg:
+				await self.channel_layer.group_send(
+					self.chat_room,
+					{
+						"type": "chat_message",
+						"text": json.dumps(myResponse)
+					}
+				)
 
 	async def chat_message(self, event):
 		await self.send({
@@ -63,4 +64,5 @@ class ChatConsumer(AsyncConsumer):
 	@database_sync_to_async
 	def create_chat_message(self, me, msg):
 		thread_obj = self.thread_obj
-		return ChatMessage.objects.create(thread=thread_obj, user=me, message=msg)
+		if msg:
+			return ChatMessage.objects.create(thread=thread_obj, user=me, message=msg)
