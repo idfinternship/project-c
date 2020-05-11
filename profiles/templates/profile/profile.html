@@ -14,11 +14,35 @@ Profile
 <p>Additional user info:</p>
      <li>Age: {{ searched_user.userprofile.age }}</li>
      <li>Gender: {{ searched_user.userprofile.gender }}</li>
+<p>Gallery:</p>
+     {% for image in images %}
+          <img src='{{ image }}' width="200px" />
+     {% endfor %}
 
 {% if searched_user.username == current_user.username %}
+<<<<<<< HEAD
 <a class="btn btn-primary" href="{% url 'profiles:profile_edit' %}">Edit Profile</a>
 <a class="btn btn-primary" href="{% url 'profiles:change_password' %}">Change password</a>
 <a class="btn btn-primary" href="{% url 'accounts:delete_acc' %}">Disable account</a>
+=======
+     <div class="mt-2">
+          <a class="btn btn-primary" href="{% url 'profiles:profile_edit' %}">Edit Profile</a>
+          <a class="btn btn-primary" href="{% url 'profiles:change_password' %}">Change password</a>
+     </div>
+{% else %}
+     <div class="mt-2">
+          <a class="btn btn-secondary" href="{% url 'profiles:friends' searched_user.username %}">{{ searched_user.username }}'s friend list</a>
+     </div>
+
+     <div class="mt-2">
+          {% if button_status == 'not_friend' %}
+               <small><a class="btn btn-primary" href="{% url 'profiles:send_friend_request' searched_user.pk %}">Add friend</a></small>
+          {% elif button_status == 'friend_request_sent' %}
+               <small><a class="btn btn-warning" href="{% url 'profiles:cancel_friend_request' searched_user.pk %}">Cancel request</a></small>
+          {% endif %}
+     </div>
+
+>>>>>>> 17cd804d53255b6ac78488a2be975be607a464b3
 
 {% endif %}
 {% endblock %}

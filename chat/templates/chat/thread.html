@@ -15,7 +15,7 @@
 <input type='submit' class='btn btn-primary' value='Send'/>
 </form>
 
-
+<script src='https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.js'></script>
 <script>
 // websocket scripts
 
@@ -31,7 +31,7 @@ if (loc.protocol == 'https:'){
 	wsStart ='wss://'
 }
 var endpoint = wsStart + loc.host + loc.pathname
-var socket = new WebSocket(endpoint)
+var socket = new ReconnectingWebSocket(endpoint)
 
 socket.onmessage = function(e){
 	console.log("message", e)
@@ -43,7 +43,6 @@ socket.onopen= function(e){
 	formData.submit(function(event){
 		event.preventDefault()
 		var msgText = msgInput.val()
-		//chatHolder.append("<li>" + me + ": " + msgText + "</li>")
 		var finalData = {
 			'message': msgText
 		}
