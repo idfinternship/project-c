@@ -1,3 +1,6 @@
+import os
+
+from django.conf import settings
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
@@ -5,9 +8,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from .forms import ProfileEditForm, UserProfileEditForm
-
 from .models import FriendRequest, UserProfile
-
+from django.conf import settings
 
 def profile(request, username):
     current_user = request.user
@@ -27,13 +29,15 @@ def profile(request, username):
             from_user=request.user).filter(to_user=searched_user)) == 1:
             button_status = 'friend_request_sent'
     #end of friend functionality
+
     context = {
         'searched_user': searched_user,
         'current_user': current_user,
         'button_status': button_status,
         'friend_list': friends,
         'sent_friend_requests': sent_friend_requests,
-        'rec_friend_requests': rec_friend_requests
+        'rec_friend_requests': rec_friend_requests,
+        'images': gallery(searched_user.username)
     }
     return render(request, 'profile/profile.html', context)
 
@@ -133,3 +137,17 @@ def delete_friend_request(request, pk):
     frequest = FriendRequest.objects.filter(from_user=from_user, to_user=request.user).first()
     frequest.delete()
     return redirect('/')
+
+def gallery(username):
+    temp = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    temp += '\profiles\media\photos\{0}'.format(username)
+    images = []
+    no_files = False
+    try:
+        path = os.listdir(temp)
+    except:
+        no_files = True
+    if not no_files:
+        for image in path:
+            images.append("/media/photos/{0}/{1}".format(username, image))
+    return images
