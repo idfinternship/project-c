@@ -16,7 +16,7 @@ Profile
      <li>Gender: {{ searched_user.userprofile.gender }}</li>
 <p>Gallery:</p>
      {% for image in images %}
-          <img src='{{ image }}' width="200px" />
+          <img src='{{ image }}' width="200px" height="200px"/>
      {% endfor %}
 
 {% if searched_user.username == current_user.username %}

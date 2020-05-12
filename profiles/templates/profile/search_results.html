@@ -1,13 +1,49 @@
 {% extends 'main/base.html' %}
-
 {% block title %}
 Profile
 {% endblock %}
 
+
 {% block content %}
+    <style>
+img {
+  border-radius: 50%;
+}
+</style>
+    <table class="table">
+    <thead class="thead-dark">
+    <tr style="text-align:center">
+        <th scope="col">Username</th>
+        <th scope="col">First name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Age</th>
+        <th scope="col">Gender</th>
+    </tr>
+    </thead>
 {% for user in users %}
-<li>
-    <a href="{% url 'profiles:profile' username=user.username %}">{{user.username}}</a>
-</li>
+    <tr>
+        <td style="text-align:center">
+            <img src="{{ user.userprofile.icon.url }}" alt="Avatar" style="width:100px" height="100px">
+            <a href="{% url 'profiles:profile' username=user.username %}">{{user.username}}</a>
+        </td>
+        <td style="text-align:center">
+            {{ user.first_name }}
+        </td>
+        <td style="text-align:center">
+            {{ user.last_name }}
+        </td>
+        <td style="text-align:center">
+            {{ user.email }}
+        </td>
+        <td style="text-align:center">
+            {{ user.userprofile.age }}
+        </td>
+        <td style="text-align:center">
+            {{ user.userprofile.gender }}
+        </td>
+    </tr>
+
 {% endfor %}
+    </table>
 {% endblock %}
