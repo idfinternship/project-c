@@ -1,12 +1,29 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-<div class="container-fluid">
-<h1>Create New Account</h1>
-<form class = "" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button class="btn btn-danger">Register</button>
-</form>
+<div class="app-container app-theme-white body-tabs-shadow closed-sidebar-mobile">
+    <div class="app-container closed-sidebar-mobile">
+        <div class="h-100 bg-premium-dark">
+            <div class="d-flex h-100 justify-content-center align-items-center">
+                <div class="modal-dialog w-100 ">
+                <div class="modal-content">
+                <div class="modal-body">
+                    <h5 class="modal-title"></h5>
+                    <h4 class="mt-2">Create your account</h4>
+                    <div class="form-row">
+                    <form method="POST" novalidate>
+                        {% csrf_token %}
+                        {% include 'accounts/basetry.html' with form=form %}
+                         <div class="text-center">
+                        <button class="btn btn-danger">Register</button>
+                         </div>
+                    </form>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+    </div>
 </div>
 {% endblock %}
