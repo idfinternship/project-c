@@ -17,23 +17,18 @@ Profile
      <li>Age: {{ searched_user.userprofile.age }}</li>
      <li>Gender: {{ searched_user.userprofile.gender }}</li>
 <p>Gallery:</p>
-<div class="row">
+<div class="row" style="margin-left: 0px;margin-right: 0px;padding-bottom: 20px;">
+
 {% for image in images %}
 
-    {% if forloop.first %}
-        <tr>
-    {% endif %}
-
-    <td><img src='{{ image }}' width="200px" height="200px"/></td>
-
-    {% if forloop.last %}
-        </tr>
-    {% else %}
-        {% if forloop.counter|divisibleby:"2" %}
-            <tr></tr>
+    <div><img src='{{ image }}' width="250px" height="250px" style="padding-left: 20px;"></div>
+       {% if forloop.counter|divisibleby:"6" and not forloop.last %}
+        </div><div class="row" style="margin-left: 0px;margin-right: 0px;padding-bottom: 20px;">
         {% endif %}
-    {% endif %}
+
+
 {% endfor %}
+
 </div>
 
 {% if searched_user.username == current_user.username %}
@@ -55,4 +50,9 @@ Profile
 
 
 {% endif %}
+
+
 {% endblock %}
+
+
+

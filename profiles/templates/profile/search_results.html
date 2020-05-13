@@ -10,10 +10,12 @@ img {
   border-radius: 15%;
 }
 </style>
-
+<div class="row" style="margin-left: 20px; margin-top: 20px; margin-right: 20px;">
 {% for user in users %}
-<div class="row">
-    <div class="col-md-12 col-lg-6 col-xl-4">
+<div class="col-sm-3">
+
+
+
         <div class="card-hover-shadow profile-responsive card-border border-success mb-3 card">
             <div class="dropdown-menu-header">
                 <div class="dropdown-menu-header-inner bg-success" style="height:140px">
@@ -77,9 +79,8 @@ img {
      </div>
             </div>
         </div>
-    </div>
-
-
 </div>
+
 {% endfor %}
+    </div>
 {% endblock %}
