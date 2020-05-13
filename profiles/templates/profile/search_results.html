@@ -1,60 +1,13 @@
 {% extends 'main/base.html' %}
+
 {% block title %}
 Profile
 {% endblock %}
 
-
 {% block content %}
-<style>
-img {
-  border-radius: 15%;
-}
-</style>
-
 {% for user in users %}
-<div class="row">
-    <div class="col-md-12 col-lg-6 col-xl-4">
-        <div class="card-hover-shadow profile-responsive card-border border-success mb-3 card">
-            <div class="dropdown-menu-header">
-                <div class="dropdown-menu-header-inner bg-success" style="height:140px">
-                    <div class="menu-header-content" align="center">
-                        <div class="avatar-icon-wrapper btn-hover-shine mb-2 avatar-icon-xl" style=" padding-top:5px; height:95px">
-                            <img src="{{ user.userprofile.icon.url }}" alt="Avatar" style="width:100px" height="100px">
-                        </div>
-                        <div><h4 class="menu-header-title">{{user.username}}</h4></div>
-                    </div>
-                </div>
-            </div>
-            <div class="p-0 card-body">
-                <div class="tab-content">
-                    <div class="tab-pane active show" id="tab-2-eg1">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left flex2">
-                                            <div class="widget-heading">Name : {{user.first_name}}</div>
-                                            <div class="widget-heading">Last Name : {{user.last_name}}</div>
-                                            <div class="widget-heading">Email : {{user.email}}</div>
-                                            <div class="widget-heading">Age : {{user.userprofile.age}}</div>
-                                            <div class="widget-heading">Gender : {{user.userprofile.gender}}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center d-block card-footer">
-     <div class="mt-2">
-          <a class="btn btn-primary" href="{% url 'profiles:profile' username=user.username %}">View Profile</a>
-     </div>
-            </div>
-        </div>
-    </div>
-
-
-</div>
+<li>
+    <a href="{% url 'profiles:profile' username=user.username %}">{{user.username}}</a>
+</li>
 {% endfor %}
 {% endblock %}

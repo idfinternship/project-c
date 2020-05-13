@@ -22,5 +22,4 @@ class UserProfileEditForm(forms.ModelForm):
             'age',
             'gender',
             'icon',
-            'gallery',
         )

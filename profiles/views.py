@@ -9,9 +9,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from .forms import ProfileEditForm, UserProfileEditForm
 from .models import FriendRequest, UserProfile
-
 from django.conf import settings
-
 
 def profile(request, username):
     current_user = request.user
@@ -26,11 +24,11 @@ def profile(request, username):
     if searched_user.userprofile not in request.user.userprofile.friends.all():
         button_status = 'not_friend'
 
-        # if sent friend request
+        #if sent friend request
         if len(FriendRequest.objects.filter(
-                from_user=request.user).filter(to_user=searched_user)) == 1:
+            from_user=request.user).filter(to_user=searched_user)) == 1:
             button_status = 'friend_request_sent'
-    # end of friend functionality
+    #end of friend functionality
 
     context = {
         'searched_user': searched_user,
@@ -47,7 +45,7 @@ def profile(request, username):
 def profile_edit(request):
     if request.method == 'POST':
         user_form = ProfileEditForm(request.POST, instance=request.user)
-        profile_form = UserProfileEditForm(request.POST, request.FILES, instance=request.user.userprofile)
+        profile_form = UserProfileEditForm(request.POST, request.FILES,  instance=request.user.userprofile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -139,7 +137,6 @@ def delete_friend_request(request, pk):
     frequest = FriendRequest.objects.filter(from_user=from_user, to_user=request.user).first()
     frequest.delete()
     return redirect('/')
-
 
 def gallery(username):
     temp = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
