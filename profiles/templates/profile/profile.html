@@ -47,6 +47,9 @@ Profile
                <small><a class="btn btn-warning" href="{% url 'profiles:cancel_friend_request' searched_user.pk %}">Cancel request</a></small>
           {% endif %}
      </div>
+     <div class="mt-2">
+          <a class="btn btn-secondary" href="{% url 'chat:thread' searched_user.username %}">Message</a>
+     </div>
 
 
 {% endif %}
