@@ -1,10 +1,9 @@
 from django.urls import path, re_path
 
-
-from .views import ThreadView, InboxView
+from .views import ThreadView, InboxView, friends_view
 
 app_name = 'chat'
 urlpatterns = [
-    path("", InboxView.as_view(), name='inbox'),
+    path("", friends_view, name='inbox'),
     re_path(r"^(?P<username>[\w.@+-]+)/$", ThreadView.as_view(), name='thread'),
 ]

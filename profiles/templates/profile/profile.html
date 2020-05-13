@@ -48,7 +48,9 @@ Profile
           {% endif %}
      </div>
      <div class="mt-2">
-          <a class="btn btn-secondary" href="{% url 'chat:thread' searched_user.username %}">Message</a>
+          {% if searched_user.userprofile in current_user.userprofile.friends.all %}
+            <a class="btn btn-secondary" href="{% url 'chat:thread' searched_user.username %}">Message</a>
+          {% endif %}
      </div>
 
 

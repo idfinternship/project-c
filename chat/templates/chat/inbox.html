@@ -6,6 +6,11 @@
         <div class='col'>
             <h1 class='p-0 m-0'>Chat</h1>
         </div>
+        {% for friend in friend_list %}
+          <div>
+               <a href="{% url 'chat:thread' friend.user.username %}">{{ friend.user.username }}</a>
+          </div>
+     {% endfor %}
     </div>
 </div>
 {% endblock %}
