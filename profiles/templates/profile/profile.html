@@ -7,32 +7,115 @@ Profile
 {% endblock %}
 
 {% block content %}
-<p>User info:</p>
-     <img src="{{ searched_user.userprofile.icon.url }}" width="200px">
-     <li> Username: {{ searched_user }}</li>
-     <li> First name: {{ searched_user.first_name }}</li>
-     <li> Last name: {{ searched_user.last_name }}</li>
-     <li> Email: {{ searched_user.email }} </li>
-<p>Additional user info:</p>
-     <li>Age: {{ searched_user.userprofile.age }}</li>
-     <li>Gender: {{ searched_user.userprofile.gender }}</li>
-<p>Gallery:</p>
-<div class="row" style="margin-left: 0px;margin-right: 0px;padding-bottom: 20px;">
-
-{% for image in images %}
-
-    <div><img src='{{ image }}' width="250px" height="250px" style="padding-left: 20px;"></div>
-       {% if forloop.counter|divisibleby:"6" and not forloop.last %}
-        </div><div class="row" style="margin-left: 0px;margin-right: 0px;padding-bottom: 20px;">
-        {% endif %}
 
 
-{% endfor %}
+    <div class="col-sm">
+                <div class="tabs widget">
+  <ul class="nav nav-tabs widget">
+      <li class="active"> <a data-toggle="tab" href="#profile-tab"><button class="mb-2 mr-2 btn btn-shadow btn-secondary">Profile</button><span class="menu-active"></span> </a></li>
+      <li class=""> <a data-toggle="tab" href="#photos-tab"><button class="mb-2 mr-2 btn btn-shadow btn-secondary"> Photos</button> <span class="menu-active"></span> </a></li>
+  </ul>
 
+  <div class="tab-content">
+{# PROFILE INFO BELOW #}
+    <div id="profile-tab" class="tab-pane active">
+      <div class="pd-20">
+          {% if searched_user.username == current_user.username %}
+            <div class="vd_info tr"> <a class="btn vd_btn btn-xs vd_bg-yellow"> <i class="fa fa-pencil append-icon"></i> Edit </a> </div>
+          {% endif %}
+
+        <h3 class="mgbt-xs-15 mgtp-10 font-semibold"><i class="icon-user mgr-10 profile-icon"></i> ABOUT</h3>
+           <img src="{{ searched_user.userprofile.icon.url }}" style="border-radius:15%; width: 150px;">
+        <div class="row" style="width: 1000px">
+          <div class="col-sm-6">
+            <div class="row mgbt-xs-0">
+              <label class="col-xs-5 control-label" style="padding-right:20px; padding-left: 20px"> <h5>First Name:</h5></label>
+                {% if searched_user.first_name != "" %}
+                <div><h5>{{ searched_user.first_name }}</h5></div>
+                    {% else %}
+                    <div class="col-xs-7 controls"><h5>Unknown</h5></div>
+                {% endif %}
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row mgbt-xs-0">
+              <label class="col-xs-5 control-label" style="padding-right:20px; padding-left: 20px"><h5>Last Name:</h5></label>
+                {% if searched_user.last_name != "" %}
+                <div class="col-xs-7 controls"><h5>{{ searched_user.last_name }}</h5></div>
+                    {% else %}
+                    <div class="col-xs-7 controls"><h5>Unknown</h5></div>
+                {% endif %}
+            </div>
+          </div>
+
+            <div class="col-sm-6">
+                <div class="row mgbt-xs-0">
+                    <label class="col-xs-5 control-label" style="padding-right:20px; padding-left: 20px"><h5>Gender:</h5></label>
+                {% if searched_user.userprofile.gender != "" %}
+                <div><h5>{{ searched_user.userprofile.gender }}</h5></div>
+                    {% else %}
+                    <div class="col-xs-7 controls"><h5>Unknown</h5></div>
+                {% endif %}
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="row mgbt-xs-0">
+                    <label class="col-xs-5 control-label" style="padding-right:20px; padding-left: 20px"><h5>Age:</h5></label>
+                {% if searched_user.userprofile.age != None %}
+                <div class="col-xs-7 controls"><h5>{{ searched_user.userprofile.age }}</h5></div>
+                    {% else %}
+                    <div class="col-xs-7 controls"><h5>Unknown</h5></div>
+                {% endif %}
+                </div>
+            </div>
+
+          <div class="col-sm-6">
+            <div class="row mgbt-xs-0">
+              <label class="col-xs-5 control-label" style="padding-right:20px; padding-left: 20px"><h5>User Name:</h5></label>
+              <div class="col-xs-7 controls"><h5>{{ searched_user }}</h5></div>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="row mgbt-xs-0">
+                <label class="col-xs-5 control-label" style="padding-right:20px; padding-left: 20px"><h5>Email:</h5></label>
+                {% if searched_user.email != "" %}
+                    <div class="col-xs-7 controls"><h5>{{ searched_user.email }}</h5></div>
+                    {% else %}
+                    <div class="col-xs-7 controls"><h5>Unknown</h5></div>
+                {% endif %}
+            </div>
+          </div>
+
+
+
+
+        </div>
+      </div>
+      <!-- pd-20 -->
+    </div>
+{# PHOTOS BELOW #}
+    <div id="photos-tab" class="tab-pane">
+      <div class="pd-20">
+        <h3 class="mgbt-xs-15 mgtp-10 font-semibold"><i class="fa fa-picture-o mgr-10 profile-icon"></i> PHOTOS</h3>
+        <ul id="filters" class="nav nav-pills">
+        </ul>
+        <br>
+      <div class="row" style="margin-left: 20px; margin-top: 20px; margin-right: 20px;">
+          {% for image in images %}
+              <div class="col-sm-2">
+                    <div><img src='{{ image }}' class="w3-border" alt="IMAGE"  width="300px" height="300px" style="padding: 15px;"></div>
+              </div>
+          {% endfor %}
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 
-{% if searched_user.username == current_user.username %}
-<a class="btn btn-primary" href="{% url 'profiles:profile_edit' %}">Edit Profile</a>
+    {% if searched_user.username == current_user.username %}
 <a class="btn btn-primary" href="{% url 'profiles:change_password' %}">Change password</a>
 <a class="btn btn-primary" href="{% url 'accounts:delete_acc' %}">Disable account</a>
 {% else %}
@@ -47,12 +130,14 @@ Profile
                <small><a class="btn btn-warning" href="{% url 'profiles:cancel_friend_request' searched_user.pk %}">Cancel request</a></small>
           {% endif %}
      </div>
-
-
+     <div class="mt-2">
+          {% if searched_user.userprofile in current_user.userprofile.friends.all %}
+            <a class="btn btn-secondary" href="{% url 'chat:thread' searched_user.username %}">Message</a>
+          {% endif %}
+     </div>
 {% endif %}
-
-
 {% endblock %}
+
 
 
 

@@ -1,19 +1,117 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-<h3>Chatting With {% if user != object.first %}{{ object.first }}{% else %}{{ object.second }}{% endif %}</h3>
-<ul id='chat-items'>
-{% for chat in object.chatmessage_set.all %}
+<style>
+	#myuser{
+		text-align: right;
+		font-size: 20px;
+	}
+	#myuser-message{
+		text-align: right;
+		font-size: 20px;
+		border: 5px solid rgb(247, 223, 218);
+		border-radius: 10px;
+		background-color: rgb(247, 223, 218);
+		padding-right: 5px;
+		padding-left: 5px;
 
-<li>{{ chat.user }}: {{ chat.message }}</li>
+	}
+	#chatting-with{
+		text-align: left;
+		font-size: 20px;
+	}
+	#align-right{
+		text-align: right;
+		padding-right: 30px;
+	}
+	#align-left{
+		text-align: left;
+	}
+	#chatting-with-message{
+		text-align: left;
+		font-size: 20px;
+		border: 5px solid rgb(247, 223, 218);
+		border-radius: 10px;
+		background-color: rgb(247, 223, 218);
+		padding-right: 5px;
+		padding-left: 5px;
+		padding-bottom: 5px;
+	}
+	#dialog-window {
+  		height: 503px;
+		border: 1px black solid;
+	}
+	#scrollable-content {
+  		height: 500px;
+  		overflow: auto;
+	}
+	#friends{
+		box-sizing: border-box;
+		border-bottom: 2px solid black;
+		font-size: 30px;
+		color: black;
+		padding-left: 5px;
+		padding-right: 1000px;
+	}
+	#friends-window {
+  		height: 703px;
+		border: 1px black solid;
+		width: 200px;
+		position: absolute;
+		left: 150px;
+	}
+	#scrollable-content-friends {
+  		height: 700px;
+  		overflow: auto;
+  		overflow-x: hidden;
+	}
+</style>
 
-{% endfor %}
-</ul>
-<form id='form' method='POST'> {% csrf_token %}
-	<input type='hidden' id='myUsername' value='{{ user.username }}' />
-{{form.as_p }}
-<input type='submit' class='btn btn-primary' value='Send'/>
-</form>
+<div class='container'>
+	
+    <div class='row border-bottom my-3 py-3'>
+    	<div id="friends-window">
+  		<div id="scrollable-content-friends">
+  			<a id="friends" href="{% url 'chat:thread' 'bandymas' %}">bandymas</a>
+   			{% for friend in friend_list %}
+          		<div>
+              		<a id="friends" href="{% url 'chat:thread' bandymas %}">bandymas</a>
+          		</div>
+     		{% endfor %}
+ 		</div>
+ 	</div>
+        <div class='col'>
+            <h1 class='p-0 m-0'>Chatting With {% if user != object.first %}{{ object.first }}{% else %}{{ object.second }}{% endif %}</h1>
+        </div>
+    </div>
+		<div id="dialog-window">
+  			<div id="scrollable-content">
+    			<ul id='chat-items'>
+     				{% for chat in object.chatmessage_set.all %}
+     					{% if chat.user == user %}
+							<p id="align-right">
+								<span id='myuser-message'>{{ chat.message }}</span>
+								<span id='myuser' >:{{ chat.user }}</span>
+							</p>
+   	 					{% else %}
+   	 						<p id="align-left">
+        					<span id='chatting-with'>{{ chat.user }}:</span>
+        					<span id='chatting-with-message'>{{ chat.message }}</span>
+        					</p>
+						{% endif %}
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+
+		<form id='form' method='POST'> {% csrf_token %}
+			<input type='hidden' id='myUsername' value='{{ user.username }}' />
+				{{form.as_p }}
+			<input type='submit' class='btn btn-primary' value='Send'/>
+		</form>
+	</div>
+	</div>
+</div>
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.js'></script>
 <script>
