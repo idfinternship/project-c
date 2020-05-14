@@ -7,3 +7,5 @@ venv
 *.pyc
 *.pyc
 *.pyc
+*.pyc
+*.sqlite3
