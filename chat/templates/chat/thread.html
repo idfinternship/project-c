@@ -12,8 +12,6 @@
 		border: 5px solid rgb(247, 223, 218);
 		border-radius: 10px;
 		background-color: rgb(247, 223, 218);
-		padding-right: 5px;
-		padding-left: 5px;
 
 	}
 	#chatting-with{
@@ -22,7 +20,6 @@
 	}
 	#align-right{
 		text-align: right;
-		padding-right: 30px;
 	}
 	#align-left{
 		text-align: left;
@@ -33,9 +30,8 @@
 		border: 5px solid rgb(247, 223, 218);
 		border-radius: 10px;
 		background-color: rgb(247, 223, 218);
-		padding-right: 5px;
-		padding-left: 5px;
-		padding-bottom: 5px;
+
+
 	}
 	#dialog-window {
   		height: 503px;
@@ -45,37 +41,9 @@
   		height: 500px;
   		overflow: auto;
 	}
-	#friends{
-		box-sizing: border-box;
-		border-bottom: 2px solid black;
-		font-size: 30px;
-		color: black;
-		padding-left: 5px;
-		padding-right: 1000px;
-	}
-	#friends-window {
-  		height: 703px;
-		border: 1px black solid;
-		width: 200px;
-		position: absolute;
-		left: 150px;
-	}
-	#scrollable-content-friends {
-  		height: 700px;
-  		overflow: auto;
-  		overflow-x: hidden;
-	}
 </style>
-
 <div class='container'>
-	
     <div class='row border-bottom my-3 py-3'>
-    	<div id="friends-window">
-  		<div id="scrollable-content-friends">
-  			<h1 id="friends">Not Implemented Yet</h1>
-   			
- 		</div>
- 	</div>
         <div class='col'>
             <h1 class='p-0 m-0'>Chatting With {% if user != object.first %}{{ object.first }}{% else %}{{ object.second }}{% endif %}</h1>
         </div>
@@ -99,15 +67,17 @@
 				</ul>
 			</div>
 		</div>
-
 		<form id='form' method='POST'> {% csrf_token %}
-			<input type='hidden' id='myUsername' value='{{ user.username }}' />
-				{{form.as_p }}
-			<input type='submit' class='btn btn-primary' value='Send'/>
-		</form>
-	</div>
+	<input type='hidden' id='myUsername' value='{{ user.username }}' />
+{{form.as_p }}
+<input type='submit' class='btn btn-primary' value='Send'/>
+</form>
 	</div>
 </div>
+
+
+
+
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.js'></script>
 <script>
