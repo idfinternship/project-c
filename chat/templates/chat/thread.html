@@ -56,9 +56,9 @@
 	#friends-window {
   		height: 703px;
 		border: 1px black solid;
-		width: 200px;
+		width: 10%;
 		position: absolute;
-		left: 150px;
+		left: 10%;
 	}
 	#scrollable-content-friends {
   		height: 700px;
@@ -70,16 +70,7 @@
 <div class='container'>
 	
     <div class='row border-bottom my-3 py-3'>
-    	<div id="friends-window">
-  		<div id="scrollable-content-friends">
-  			<a id="friends" href="{% url 'chat:thread' 'bandymas' %}">bandymas</a>
-   			{% for friend in friend_list %}
-          		<div>
-              		<a id="friends" href="{% url 'chat:thread' bandymas %}">bandymas</a>
-          		</div>
-     		{% endfor %}
- 		</div>
- 	</div>
+    	
         <div class='col'>
             <h1 class='p-0 m-0'>Chatting With {% if user != object.first %}{{ object.first }}{% else %}{{ object.second }}{% endif %}</h1>
         </div>
