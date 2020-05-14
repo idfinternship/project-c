@@ -105,16 +105,10 @@ Profile
 </div>
 </div>
 
-<<<<<<< HEAD
 {% if searched_user.username == current_user.username %}
-    <a class="btn btn-primary" href="{% url 'profiles:change_password' %}">Change password</a>
-    <a class="btn btn-primary" href="{% url 'accounts:delete_acc' %}">Disable account</a>
-=======
-    {% if searched_user.username == current_user.username %}
         <a class="mb-2 mr-2 btn btn-shadow btn-secondary" href="{% url 'profiles:profile_edit' %}">Edit Profile</a>
         <a class="mb-2 mr-2 btn btn-shadow btn-secondary" href="{% url 'profiles:change_password' %}">Change password</a>
-    <a class="mb-2 mr-2 btn btn-shadow btn-secondary" href="{% url 'accounts:delete_acc' %}">Disable account</a>
->>>>>>> 6a5827ad7941e06bbfea242c20b593b325e0ad05
+        <a class="mb-2 mr-2 btn btn-shadow btn-secondary" href="{% url 'accounts:delete_acc' %}">Disable account</a>
 {% else %}
      <div class="mt-2">
           <a class="btn btn-secondary" href="{% url 'profiles:friends' searched_user.username %}">{{ searched_user.username }}'s friend list</a>
@@ -130,7 +124,7 @@ Profile
      <div class="mt-2">
           {% if searched_user.userprofile in current_user.userprofile.friends.all %}
             <a class="btn btn-secondary" href="{% url 'chat:thread' searched_user.username %}">Message</a>
-          {#<a class="btn btn-secondary" href="{% url 'profiles:delete_friend' searched_user.username %}">Remove friend</a> NOT DONE#}
+          {# <a class="btn btn-secondary" href="{% url 'profiles:delete_friend' searched_user.username %}">Remove friend</a> NOT DONE #}
           {% endif %}
      </div>
 {% endif %}
