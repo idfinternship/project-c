@@ -14,11 +14,11 @@ Friends
      {% endfor %}
 
      <div>Sent friend requests:</div>
-     <ul>
+     <div>
           {% for s_request in sent_friend_requests %}
-               <li>{{ s_request.to_user.username }}</li>
+               <div><a href="{% url 'profiles:profile' s_request.to_user.username %}">{{ s_request.to_user.username }}</a></div>
           {% endfor %}
-     </ul>
+     </div>
 
      <div>Received friend requests:</div>
      {% for r_request in rec_friend_requests %}
