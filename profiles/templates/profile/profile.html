@@ -8,25 +8,20 @@ Profile
 
 {% block content %}
 
-
-    <div class="col-sm">
+    <div class="col-sm" style="padding-bottom:20px">
                 <div class="tabs widget">
   <ul class="nav nav-tabs widget">
-      <li class="active"> <a data-toggle="tab" href="#profile-tab"><button class="mb-2 mr-2 btn btn-shadow btn-secondary">Profile</button><span class="menu-active"></span> </a></li>
-      <li class=""> <a data-toggle="tab" href="#photos-tab"><button class="mb-2 mr-2 btn btn-shadow btn-secondary"> Photos</button> <span class="menu-active"></span> </a></li>
+      <li class="active"> <a data-toggle="tab" href="#profile-tab" class="mb-2 mr-2 btn btn-shadow btn-secondary">Profile<span class="menu-active"></span> </a></li>
+      <li class=""> <a data-toggle="tab" href="#photos-tab" class="mb-2 mr-2 btn btn-shadow btn-secondary"> Photos<span class="menu-active"></span> </a></li>
   </ul>
 
   <div class="tab-content">
 {# PROFILE INFO BELOW #}
     <div id="profile-tab" class="tab-pane active">
       <div class="pd-20">
-          {% if searched_user.username == current_user.username %}
-            <div class="vd_info tr"> <a class="btn vd_btn btn-xs vd_bg-yellow"> <i class="fa fa-pencil append-icon"></i> Edit </a> </div>
-          {% endif %}
-
-        <h3 class="mgbt-xs-15 mgtp-10 font-semibold"><i class="icon-user mgr-10 profile-icon"></i> ABOUT</h3>
+        <h3 class="mgbt-xs-15 mgtp-10 font-semibold" style="padding-bottom: 15px"><i class="icon-user mgr-10 profile-icon"></i> ABOUT</h3>
            <img src="{{ searched_user.userprofile.icon.url }}" style="border-radius:15%; width: 150px;">
-        <div class="row" style="width: 1000px">
+        <div class="row" style="width: 1000px; padding-top: 20px">
           <div class="col-sm-6">
             <div class="row mgbt-xs-0">
               <label class="col-xs-5 control-label" style="padding-right:20px; padding-left: 20px"> <h5>First Name:</h5></label>
@@ -87,13 +82,8 @@ Profile
                 {% endif %}
             </div>
           </div>
-
-
-
-
         </div>
       </div>
-      <!-- pd-20 -->
     </div>
 {# PHOTOS BELOW #}
     <div id="photos-tab" class="tab-pane">
@@ -116,8 +106,9 @@ Profile
 </div>
 
     {% if searched_user.username == current_user.username %}
-<a class="btn btn-primary" href="{% url 'profiles:change_password' %}">Change password</a>
-<a class="btn btn-primary" href="{% url 'accounts:delete_acc' %}">Disable account</a>
+        <a class="mb-2 mr-2 btn btn-shadow btn-secondary" href="{% url 'profiles:profile_edit' %}">Edit Profile</a>
+        <a class="mb-2 mr-2 btn btn-shadow btn-secondary" href="{% url 'profiles:change_password' %}">Change password</a>
+    <a class="mb-2 mr-2 btn btn-shadow btn-secondary" href="{% url 'accounts:delete_acc' %}">Disable account</a>
 {% else %}
      <div class="mt-2">
           <a class="btn btn-secondary" href="{% url 'profiles:friends' searched_user.username %}">{{ searched_user.username }}'s friend list</a>
