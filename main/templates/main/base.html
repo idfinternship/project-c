@@ -15,7 +15,9 @@
   <div class="container-fluid">
   <ul class="navbar navbar-nav navbar-left ">
     <li class="nav-item">
+      {% if not user.is_anonymous %}
       <a class="nav-link" href="{% url 'main:home' %}">Home</a>
+      {% endif %}
     </li>
     <li class="nav-item">
       {% if not user.is_anonymous %}
