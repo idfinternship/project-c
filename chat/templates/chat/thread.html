@@ -134,7 +134,14 @@ var socket = new ReconnectingWebSocket(endpoint)
 socket.onmessage = function(e){
 	console.log("message", e)
 	var chatDataMsg = JSON.parse(e.data)
-	chatHolder.append("<li>" + chatDataMsg.username+ ": " + chatDataMsg.message + "</li>")
+	if (me == chatDataMsg.username){
+	chatHolder.append("<p id='align-right'>" + "<span id='myuser-message'>" + chatDataMsg.message + "</span>" + 
+			"<span id='myuser' >" + " :"+ chatDataMsg.username + "</span>" + "</p>")
+	}
+	else{
+		chatHolder.append("<p id='align-left'>" + "<span id='chatting-with' >"+ chatDataMsg.username + ": " + "</span>"+
+			"<span id='chatting-with-message'>" + chatDataMsg.message +  "</span>" + "</p>")
+	}
 }
 socket.onopen= function(e){
 	console.log("open", e)
