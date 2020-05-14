@@ -1,6 +1,6 @@
 from django.urls import path, re_path
 
-from .views import ThreadView, InboxView, friends_view
+from .views import ThreadView, friends_view
 
 app_name = 'chat'
 urlpatterns = [
