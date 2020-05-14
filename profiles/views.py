@@ -110,7 +110,9 @@ def send_friend_request(request, pk):
         from_user=request.user,
         to_user=user
     )
-    return redirect('/')
+
+    url = "/profile/" + str(request.user.username) + "/friends"
+    return redirect(url)
 
 
 def cancel_friend_request(request, pk):
@@ -120,7 +122,9 @@ def cancel_friend_request(request, pk):
         to_user=user
     ).first()
     frequest.delete()
-    return redirect('/')
+
+    url = "/profile/" + str(request.user.username) + "/friends"
+    return redirect(url)
 
 
 def accept_friend_request(request, pk):
@@ -131,15 +135,28 @@ def accept_friend_request(request, pk):
     user1.userprofile.friends.add(user2.userprofile)
     user2.userprofile.friends.add(user1.userprofile)
     frequest.delete()
-    return redirect('/')
+
+    url = "/profile/" + str(request.user.username) + "/friends"
+    return redirect(url)
 
 
 def delete_friend_request(request, pk):
     from_user = get_object_or_404(User, pk=pk)
     frequest = FriendRequest.objects.filter(from_user=from_user, to_user=request.user).first()
     frequest.delete()
-    return redirect('/')
 
+    url = "/profile/" + str(request.user.username) + "/friends"
+    return redirect(url)
+
+def delete_friend(request, username):
+    current_user = request.user
+    friend_user = User.objects.get(username=username)
+
+    current_user.userprofile.friends.get(user=friend_user).delete()
+    friend_user.userprofile.friends.get(user=current_user).delete()
+
+    url = "/profile/" + str(request.user.username) + "/friends"
+    return redirect(url)
 
 def gallery(username):
     temp = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
