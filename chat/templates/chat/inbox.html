@@ -5,7 +5,7 @@
 	#friends{
 		box-sizing: border-box;
 		border-bottom: 2px solid black;
-		font-size: 30px;
+		font-size: 20px;
 		color: black;
 		padding-left: 5px;
 		padding-right: 1000px;
@@ -13,7 +13,7 @@
 	#friends-window {
   		height: 703px;
 		border: 1px black solid;
-		width: 200px;
+		width: 300px;
 	}
 	#scrollable-content-friends {
   		height: 700px;
@@ -30,9 +30,11 @@
     	<div id="friends-window">
   			<div id="scrollable-content-friends">
    				{% for friend in friend_list %}
-          		<div>
-              		<a id="friends" href="{% url 'chat:thread' friend.user.username %}">{{ friend.user.username }}</a>
-          		</div>
+   				<a href="{% url 'chat:thread' friend.user.username %}">
+   					<div>
+              		<p id="friends"><img src="{{ friend.user.userprofile.icon.url }}" style="border-radius:15%; width: 40px;"> {{ friend.user.username }}</p>
+          			</div>
+          		</a>
      			{% endfor %}
  			</div>
 		</div>
