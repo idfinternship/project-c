@@ -77,10 +77,14 @@
      				{% for chat in object.chatmessage_set.all %}
      					{% if chat.user == user %}
 							<p id="align-right">
-
 								<span id='myuser-message'>{{ chat.message }}</span>
 								<img id='image-pic' src='{{ chat.user.userprofile.icon.url }}'>
 							</p>
+							{% if user == object.first %}
+        					<input type='hidden' id='meObj' value='1' />
+							{% else %}
+							<input type='hidden' id='meObj' value='2' />
+							{% endif %}
    	 					{% else %}
    	 						<p id="align-left">
         					<img id='image-pic' src='{{ chat.user.userprofile.icon.url }}'>
@@ -109,6 +113,8 @@ var formData = $("#form")
 var msgInput = $("#id_message")
 var chatHolder = $("#chat-items")
 var me = $("#myUsername").val()
+var myObjNumber = $("#meObj").val()
+
 
 var wsStart = 'ws://'
 if (loc.protocol == 'https:'){
@@ -120,12 +126,29 @@ var socket = new ReconnectingWebSocket(endpoint)
 socket.onmessage = function(e){
 	console.log("message", e)
 	var chatDataMsg = JSON.parse(e.data)
-	if (me == chatDataMsg.username){
-	chatHolder.append("<p id='align-right'>" + "<span id='myuser-message'>" + chatDataMsg.message + "</span>" + "<img id='image-pic' src='{{ user.userprofile.icon.url }}'>" + "</p>")
+	if (me == chatDataMsg.username)
+	{
+		if(myObjNumber == "1")
+		{
+			chatHolder.append("<p id='align-right'>" + "<span id='myuser-message'>" + chatDataMsg.message + "</span>" + "<img id='image-pic' src='{{ object.first.userprofile.icon.url }}'>" + "</p>")
+		}
+		else
+		{
+			chatHolder.append("<p id='align-right'>" + "<span id='myuser-message'>" + chatDataMsg.message + "</span>" + "<img id='image-pic' src='{{ object.second.userprofile.icon.url }}'>" + "</p>")
+		}
 	}
-	else{
-		chatHolder.append("<p id='align-left'>" +  "<img id='image-pic' src='{{ user.userprofile.icon.url }}'>" + 
+	else
+	{
+		if(myObjNumber == "1")
+		{
+			chatHolder.append("<p id='align-left'>" +  "<img id='image-pic' src='{{ object.second.userprofile.icon.url }}'>" + 
 			"<span id='chatting-with-message'>" + chatDataMsg.message +  "</span>" + "</p>")
+		}
+		else
+		{
+			chatHolder.append("<p id='align-left'>" +  "<img id='image-pic' src='{{ object.first.userprofile.icon.url }}'>" + 
+			"<span id='chatting-with-message'>" + chatDataMsg.message +  "</span>" + "</p>")
+		}
 	}
 }
 socket.onopen= function(e){
