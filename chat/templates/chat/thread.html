@@ -122,6 +122,12 @@ if (loc.protocol == 'https:'){
 }
 var endpoint = wsStart + loc.host + loc.pathname
 var socket = new ReconnectingWebSocket(endpoint)
+const out = document.getElementById("scrollable-content")
+const isScrolledToBottom = out.scrollHeight - out.clientHeight <= out.scrollTop + 1
+
+function format () {
+  return Array.prototype.slice.call(arguments).join(' ')
+}
 
 socket.onmessage = function(e){
 	console.log("message", e)
@@ -130,18 +136,18 @@ socket.onmessage = function(e){
 	{
 		if(myObjNumber == "1")
 		{
-			chatHolder.append("<p id='align-right'>" + "<span id='myuser-message'>" + chatDataMsg.message + "</span>" + "<img id='image-pic' src='{{ object.first.userprofile.icon.url }}'>" + "</p>")
+			chatHolder.append("<p id='align-right'>" + "<span id='myuser-message'>" + chatDataMsg.message + "</span>" + " " + "<img id='image-pic' src='{{ object.first.userprofile.icon.url }}'>" + "</p>")
 		}
 		else
 		{
-			chatHolder.append("<p id='align-right'>" + "<span id='myuser-message'>" + chatDataMsg.message + "</span>" + "<img id='image-pic' src='{{ object.second.userprofile.icon.url }}'>" + "</p>")
+			chatHolder.append("<p id='align-right'>" + "<span id='myuser-message'>" + chatDataMsg.message + "</span>" + " " + "<img id='image-pic' src='{{ object.second.userprofile.icon.url }}'>" + "</p>")
 		}
 	}
 	else
 	{
 		if(myObjNumber == "1")
 		{
-			chatHolder.append("<p id='align-left'>" +  "<img id='image-pic' src='{{ object.second.userprofile.icon.url }}'>" + 
+			chatHolder.append("<p id='align-left'>" + "<img id='image-pic' src='{{ object.second.userprofile.icon.url }}'>" + 
 			"<span id='chatting-with-message'>" + chatDataMsg.message +  "</span>" + "</p>")
 		}
 		else
@@ -150,6 +156,9 @@ socket.onmessage = function(e){
 			"<span id='chatting-with-message'>" + chatDataMsg.message +  "</span>" + "</p>")
 		}
 	}
+	if (!isScrolledToBottom) {
+      out.scrollTop = out.scrollHeight - out.clientHeight
+    }
 }
 socket.onopen= function(e){
 	console.log("open", e)
@@ -162,6 +171,9 @@ socket.onopen= function(e){
 		socket.send(JSON.stringify(finalData))
 		formData[0].reset()
 	})
+    if (!isScrolledToBottom) {
+      out.scrollTop = out.scrollHeight - out.clientHeight
+    }
 }
 socket.onerror= function(e){
 	console.log("error", e)
