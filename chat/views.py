@@ -53,6 +53,9 @@ class ThreadView(LoginRequiredMixin, FormMixin, DetailView):
         ChatMessage.objects.create(user=user, thread=thread, message=message)
         return super().form_valid(form)
 
+
+
+
 def friends_view(request):
     current_user = request.user
     friends = current_user.userprofile.friends.all()
@@ -62,3 +65,13 @@ def friends_view(request):
         'friend_list': friends,
     }
     return render(request, 'chat/inbox.html', context)
+
+def friends_view1(request):
+    current_user = request.user
+    friends = current_user.userprofile.friends.all()
+
+    context = {
+        'current_user': current_user,
+        'friend_list': friends,
+    }
+    return render(request, 'chat/thread.html', context)

@@ -1,6 +1,7 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+
 <style>
 	#myuser-message{
 		text-align: right;
@@ -10,7 +11,9 @@
 		background-color: rgb(102, 176, 250);
 		padding-right: 5px;
 		padding-left: 5px;
-
+		width: 80%;
+		word-break: break-all;
+		overflow: auto;
 	}
 	#align-right{
 		text-align: right;
@@ -28,6 +31,8 @@
 		padding-right: 5px;
 		padding-left: 5px;
 		padding-bottom: 5px;
+		overflow: auto;
+		word-break: break-all;
 	}
 	#dialog-window {
   		height: 503px;
@@ -40,8 +45,8 @@
 	#friends{
 		box-sizing: border-box;
 		border-bottom: 2px solid black;
-		font-size: 30px;
-		color: black;
+		font-size: 20px;
+		color: #000000;
 		padding-left: 5px;
 		padding-right: 1000px;
 	}
@@ -52,32 +57,27 @@
 		position: absolute;
 		left: 10%;
 	}
-	#scrollable-content-friends {
-  		height: 700px;
-  		overflow: auto;
-  		overflow-x: hidden;
-	}
 	#image-pic{
 		border-radius: 15%;
 		width: 40px;
 	}
 </style>
 
-<div class='container'>
+<div class='container' style='max-width: 70%;' >
 	
-    <div class='row border-bottom my-3 py-3'>
+    <div class='my-3 py-3' style="width:80%; float: right">
     	
         <div class='col'>
             <h1 class='p-0 m-0'>Chatting With {% if user != object.first %}{{ object.first }}{% else %}{{ object.second }}{% endif %}</h1>
         </div>
     </div>
-		<div id="dialog-window">
-  			<div id="scrollable-content">
+		<div id="dialog-window" style="width:80%; float: right; ">
+  			<div id="scrollable-content" style="max-width: 100%">
     			<ul id='chat-items'>
      				{% for chat in object.chatmessage_set.all %}
      					{% if chat.user == user %}
 							<p id="align-right">
-								<span id='myuser-message'>{{ chat.message }}</span>
+								<span id='myuser-message' style="max-width: 100%">{{ chat.message }}</span>
 								<img id='image-pic' src='{{ chat.user.userprofile.icon.url }}'>
 							</p>
 							{% if user == object.first %}
@@ -88,15 +88,20 @@
    	 					{% else %}
    	 						<p id="align-left">
         					<img id='image-pic' src='{{ chat.user.userprofile.icon.url }}'>
-        					<span id='chatting-with-message'>{{ chat.message }}</span>
+        					<span id='chatting-with-message' style="max-width: 100%">{{ chat.message }}</span>
         					</p>
 						{% endif %}
 					{% endfor %}
 				</ul>
 			</div>
 		</div>
+		<div id="dialog-window" style="width:15%; float: left;">
+  			<div id="scrollable-content" style="overflow: auto; overflow-x: hidden;">
+  				{% include "chat/friendslist.html" with friend_list=user.userprofile.friends.all %}
+  			</div>
+  		</div>
 
-		<form id='form' method='POST'> {% csrf_token %}
+		<form id='form' method='POST' style="width:80%; float: right"> {% csrf_token %}
 			<input type='hidden' id='myUsername' value='{{ user.username }}' />
 				{{form.as_p }}
 			<input type='submit' class='btn btn-primary' value='Send'/>
