@@ -124,6 +124,9 @@ var endpoint = wsStart + loc.host + loc.pathname
 var socket = new ReconnectingWebSocket(endpoint)
 const out = document.getElementById("scrollable-content")
 const isScrolledToBottom = out.scrollHeight - out.clientHeight <= out.scrollTop + 1
+if (!isScrolledToBottom) {
+      out.scrollTop = out.scrollHeight - out.clientHeight
+}
 
 function format () {
   return Array.prototype.slice.call(arguments).join(' ')
@@ -171,9 +174,6 @@ socket.onopen= function(e){
 		socket.send(JSON.stringify(finalData))
 		formData[0].reset()
 	})
-    if (!isScrolledToBottom) {
-      out.scrollTop = out.scrollHeight - out.clientHeight
-    }
 }
 socket.onerror= function(e){
 	console.log("error", e)
