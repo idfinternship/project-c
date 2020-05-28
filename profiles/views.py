@@ -148,15 +148,17 @@ def delete_friend_request(request, pk):
     url = "/profile/" + str(request.user.username) + "/friends"
     return redirect(url)
 
+
 def delete_friend(request, username):
     current_user = request.user
     friend_user = User.objects.get(username=username)
 
-    current_user.userprofile.friends.get(user=friend_user).delete()
-    friend_user.userprofile.friends.get(user=current_user).delete()
+    current_user.userprofile.friends.remove(friend_user.userprofile)
+    friend_user.userprofile.friends.remove(current_user.userprofile)
 
     url = "/profile/" + str(request.user.username) + "/friends"
     return redirect(url)
+
 
 def gallery(username):
     temp = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
