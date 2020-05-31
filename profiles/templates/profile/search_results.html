@@ -1,78 +1,80 @@
 {% extends 'main/base.html' %}
 {% block title %}
-Profile
+    Profile
 {% endblock %}
 
 
 {% block content %}
-<style>
-img {
-  border-radius: 15%;
-}
-</style>
-<div class="row" style="margin-left: 20px; margin-top: 20px; margin-right: 20px;">
-{% for user in users %}
-<div class="col-sm-3">
+    <style>
+        img {
+            border-radius: 15%;
+        }
+    </style>
+    <div class="row" style="margin-left: 20px; margin-top: 20px; margin-right: 20px;">
+        {% for user in users %}
+            <div class="col-sm-3">
 
 
-
-        <div class="card-hover-shadow profile-responsive card-border mb-3 card" style="border-color: darkgray;">
-                <div class="dropdown-menu-header-inner" style="height:140px; background-color: darkgray">
-                    <div class="menu-header-content" align="center">
-                        <div class="avatar-icon-wrapper btn-hover-shine mb-2 avatar-icon-xl" style=" padding-top:5px; height:95px">
-                            <img src="{{ user.userprofile.icon.url }}" alt="Avatar" style="width:100px" height="100px">
+                <div class="card-hover-shadow profile-responsive card-border mb-3 card" style="border-color: darkgray;">
+                    <div class="dropdown-menu-header-inner" style="height:140px; background-color: darkgray">
+                        <div class="menu-header-content" align="center">
+                            <div class="avatar-icon-wrapper btn-hover-shine mb-2 avatar-icon-xl"
+                                 style=" padding-top:5px; height:95px">
+                                <img src="{{ user.userprofile.icon.url }}" alt="Avatar" style="width:100px"
+                                     height="100px">
+                            </div>
+                            <div><h4 class="menu-header-title">{{ user.username }}</h4></div>
                         </div>
-                        <div><h4 class="menu-header-title">{{user.username}}</h4></div>
+                    </div>
+                    <div class="p-0 card-body">
+                        <li class="list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper" style="height: 120px; overflow: auto">
+                                    <div class="widget-content-left flex2">
+                                        {% if user.first_name == '' %}
+                                            <div class="widget-heading">Name : Unknown</div>
+                                        {% else %}
+                                            <div class="widget-heading">Name : {{ user.first_name }}</div>
+                                        {% endif %}
+
+                                        {% if user.last_name == '' %}
+                                            <div class="widget-heading">Last Name : Unknown</div>
+                                        {% else %}
+                                            <div class="widget-heading">Last Name : {{ user.last_name }}</div>
+                                        {% endif %}
+
+                                        {% if user.email == '' %}
+                                            <div class="widget-heading">Email : Unknown</div>
+                                        {% else %}
+                                            <div class="widget-heading">Email : {{ user.email }}</div>
+                                        {% endif %}
+
+                                        {% if user.userprofile.age == None %}
+                                            <div class="widget-heading">Age : Unknown</div>
+                                        {% else %}
+                                            <div class="widget-heading">Age : {{ user.userprofile.age }}</div>
+                                        {% endif %}
+
+                                        {% if user.userprofile.gender == '' %}
+                                            <div class="widget-heading">Gender : Unknown</div>
+                                        {% else %}
+                                            <div class="widget-heading">Gender : {{ user.userprofile.gender }}</div>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </div>
+                    <div class="text-center d-block card-footer">
+                        <div class="mt-2">
+                            <a class="mb-2 mr-2 btn btn-shadow btn-secondary"
+                               href="{% url 'profiles:profile' username=user.username %}">View Profile</a>
+                        </div>
                     </div>
                 </div>
-            <div class="p-0 card-body">
-                <li class="list-group-item" >
-                    <div class="widget-content p-0" >
-                        <div class="widget-content-wrapper" style="height: 120px; overflow: auto">
-                            <div class="widget-content-left flex2" >
-                                {% if user.first_name == '' %}
-                                    <div class="widget-heading">Name : Unknown</div>
-                                    {% else %}
-                                    <div class="widget-heading">Name : {{user.first_name}}</div>
-                                {% endif %}
-
-                                {% if user.last_name == '' %}
-                                    <div class="widget-heading">Last Name : Unknown</div>
-                                    {% else %}
-                                    <div class="widget-heading">Last Name : {{user.last_name}}</div>
-                                {% endif %}
-
-                                {% if user.email == '' %}
-                                    <div class="widget-heading">Email : Unknown</div>
-                                    {% else %}
-                                    <div class="widget-heading">Email : {{user.email}}</div>
-                                {% endif %}
-
-                                {% if user.userprofile.age == None %}
-                                    <div class="widget-heading">Age : Unknown</div>
-                                    {% else %}
-                                    <div class="widget-heading">Age : {{user.userprofile.age}}</div>
-                                {% endif %}
-
-                                {% if user.userprofile.gender == '' %}
-                                    <div class="widget-heading">Gender : Unknown</div>
-                                    {% else %}
-                                    <div class="widget-heading">Gender : {{user.userprofile.gender}}</div>
-                                {% endif %}
-
-                            </div>
-                        </div>
-                    </div>
-                </li>
             </div>
-            <div class="text-center d-block card-footer">
-     <div class="mt-2">
-          <a class="mb-2 mr-2 btn btn-shadow btn-secondary" href="{% url 'profiles:profile' username=user.username %}">View Profile</a>
-     </div>
-            </div>
-        </div>
-</div>
 
-{% endfor %}
+        {% endfor %}
     </div>
 {% endblock %}
