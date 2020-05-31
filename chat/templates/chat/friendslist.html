@@ -1,24 +1,25 @@
 {% block content %}
-<style>
-  #friends{
-    box-sizing: border-box;
-    border-bottom: 2px solid black;
-    font-size: 20px;
-    color: #000000;
-    padding-left: 5px;
-    padding-right: 1000px;
-  }
-</style>
+    <style>
+        #friends {
+            box-sizing: border-box;
+            border-bottom: 2px solid black;
+            font-size: 20px;
+            color: #000000;
+            padding-left: 5px;
+            padding-right: 1000px;
+        }
+    </style>
 
-<div>
-  {% for friend in friend_list %}
-   	<a href="{% url 'chat:thread' friend.user.username %}">
-   		<div>
-         <p id="friends"><img src="{{ friend.user.userprofile.icon.url }}" style="border-radius:15%; width: 40px;"> {{ friend.user.username }}</p>
-      </div>
-    </a>
-  {% endfor %}
-</div>
+    <div>
+        {% for friend in friend_list %}
+            <a href="{% url 'chat:thread' friend.user.username %}">
+                <div>
+                    <p id="friends"><img src="{{ friend.user.userprofile.icon.url }}"
+                                         style="border-radius:15%; width: 40px;"> {{ friend.user.username }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
 
 {% endblock %}
 
