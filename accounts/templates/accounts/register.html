@@ -9,8 +9,8 @@
                 <div class="modal-content">
                 <div class="modal-body">
                     <h5 class="modal-title"></h5>
-                    <h4 class="mt-2">Create your account</h4>
-                    <div class="form-row">
+                    <h4 class="mt-2 text-center">Create your account</h4>
+                    <div class="form-row justify-content-center ">
                     <form method="POST" novalidate>
                         {% csrf_token %}
                         {% include 'accounts/basetry.html' with form=form %}
