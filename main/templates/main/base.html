@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>{% block title %} {% endblock %}</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <script src="https://kit.fontawesome.com/7bd927393f.js" crossorigin="anonymous"></script>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <title>{% block title %} {% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/7bd927393f.js" crossorigin="anonymous"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+          media="screen">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
 
 </head>
   <style>
@@ -22,42 +23,43 @@
 </style>
 <body style="padding-top: 0px">
 <nav class="navbar navbar-expand-sm bg-dark switch" style="border-radius: 0px">
-  <div class="container-fluid">
-  <ul class="navbar navbar-nav navbar-left ">
-    <li class="nav-item">
-      {% if not user.is_anonymous %}
-      <a class="nav-link" href="{% url 'main:home' %}">Home</a>
-      {% endif %}
-    </li>
-    <li class="nav-item">
-      {% if not user.is_anonymous %}
-      <a class="nav-link" href="{% url 'postfeed:posts' user.username %}">Posts</a>
-      {% endif %}
-    </li>
-    <li class="nav-item">
-      {% if not user.is_anonymous %}
-      <a class="nav-link" href="{% url 'profiles:profile' user.username %}">Profile</a>
-      {% endif %}
-    </li>
-    <li class="nav-item">
-      {% if not user.is_anonymous %}
-      <a class="nav-link" href="{% url 'profiles:friends' user.username %}">Friends</a>
-      {% endif %}
-    </li>
-    <li class="nav-item">
-      {% if not user.is_anonymous %}
-      <a class="nav-link" href="{% url 'chat:inbox' %}">Chat</a>
-      {% endif %}
-      {% if not user.is_anonymous %}
-    </li>
-  <form method="get" action="{% url 'profiles:search' %}" class="form-inline my-2 my-lg-0">
-    <input name="q" value="{{request.GET.q}}" placeholder="Search" class="form-control mr-sm-2"/>
-    <button class="btn btn-primary" type="submit" >
-        Search
-    </button>
-</form>
-  {% endif %}
+    <div class="container-fluid">
+        <ul class="navbar navbar-nav navbar-left ">
+            <li class="nav-item">
+                {% if not user.is_anonymous %}
+                    <a class="nav-link" href="{% url 'main:home' %}">Home</a>
+                {% endif %}
+            </li>
+            <li class="nav-item">
+                {% if not user.is_anonymous %}
+                    <a class="nav-link" href="{% url 'postfeed:posts' user.username %}">Posts</a>
+                {% endif %}
+            </li>
+            <li class="nav-item">
+                {% if not user.is_anonymous %}
+                    <a class="nav-link" href="{% url 'profiles:profile' user.username %}">Profile</a>
+                {% endif %}
+            </li>
+            <li class="nav-item">
+                {% if not user.is_anonymous %}
+                    <a class="nav-link" href="{% url 'profiles:friends' user.username %}">Friends</a>
+                {% endif %}
+            </li>
+            <li class="nav-item">
+                {% if not user.is_anonymous %}
+                    <a class="nav-link" href="{% url 'chat:inbox' %}">Chat</a>
+                {% endif %}
+                {% if not user.is_anonymous %}
+                    </li>
+                    <form method="get" action="{% url 'profiles:search' %}" class="form-inline my-2 my-lg-0">
+                        <input name="q" value="{{ request.GET.q }}" placeholder="Search" class="form-control mr-sm-2"/>
+                        <button class="btn btn-primary" type="submit">
+                            Search
+                        </button>
+                    </form>
+                {% endif %}
 
+<<<<<<< HEAD
   </ul>
   <ul class="nav navbar-nav navbar-right">
     <li class="nav-item">
@@ -76,6 +78,27 @@
       {% endif %}
     </li>
   </ul>
+=======
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+                {% if  user.is_anonymous %}
+                    <a class="nav-link " href="{% url 'accounts:login_url' %}">Login In</a>
+                {% endif %}
+            </li>
+            <li class="nav-item">
+                {% if  user.is_anonymous %}
+                    <a class="nav-link" href="{% url 'accounts:register_url' %}">Register</a>
+                {% endif %}
+            </li>
+            <li class="nav-item">
+                {% if not user.is_anonymous %}
+                    <a class="nav-link " href="{% url 'accounts:logout' %}">Logout</a>
+                {% endif %}
+            </li>
+        </ul>
+>>>>>>> c186aeba7e13c9c32d5263b4a31d9c7305b903f7
 
 
     </div>
