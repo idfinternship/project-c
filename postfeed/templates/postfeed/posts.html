@@ -42,7 +42,7 @@
           <div class="post-footer-option container">
               <div style="display:inline-block">{{ post.liked.all.count }} likes</div>
               <div style="display:inline-block">
-                <form action="{% url 'postfeed:like_post' %}" method="POST" >
+                <form action="{% url 'postfeed:like_post_self' %}" method="POST" >
                 {% csrf_token %}
                 <input type="hidden" name="post_id" value={{ post.id }} >
                 {% if user not in post.liked.all %}

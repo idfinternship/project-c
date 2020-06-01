@@ -73,4 +73,28 @@ def like_post(request):
                 like.value = 'Like'
 
         like.save()
-    return redirect('postfeed:posts', username=liked_post_user.username)
+    return redirect('postfeed:home')
+
+@login_required
+def like_post_self(request):
+    user = request.user
+    if request.method == 'POST':
+        post_id = request.POST.get('post_id')
+        post = Post.objects.get(id=post_id)
+        liked_post_user = post.user
+
+        if user in post.liked.all():
+            post.liked.remove(user)
+        else:
+            post.liked.add(user)
+
+        like, created = Like.objects.get_or_create(user=user, post_id=post_id)
+
+        if not created:
+            if like.value == 'Like':
+                like.value = 'Unlike'
+            else:
+                like.value = 'Like'
+
+        like.save()
+    return redirect('postfeed:posts', username=request.user.username)
