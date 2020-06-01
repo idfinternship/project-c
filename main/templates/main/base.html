@@ -59,7 +59,6 @@
                     </form>
                 {% endif %}
 
-<<<<<<< HEAD
   </ul>
   <ul class="nav navbar-nav navbar-right">
     <li class="nav-item">
@@ -78,27 +77,9 @@
       {% endif %}
     </li>
   </ul>
-=======
-        </ul>
 
-        <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item">
-                {% if  user.is_anonymous %}
-                    <a class="nav-link " href="{% url 'accounts:login_url' %}">Login In</a>
-                {% endif %}
-            </li>
-            <li class="nav-item">
-                {% if  user.is_anonymous %}
-                    <a class="nav-link" href="{% url 'accounts:register_url' %}">Register</a>
-                {% endif %}
-            </li>
-            <li class="nav-item">
-                {% if not user.is_anonymous %}
-                    <a class="nav-link " href="{% url 'accounts:logout' %}">Logout</a>
-                {% endif %}
-            </li>
-        </ul>
->>>>>>> c186aeba7e13c9c32d5263b4a31d9c7305b903f7
+
+
 
 
     </div>
