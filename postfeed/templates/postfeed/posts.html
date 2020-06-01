@@ -22,7 +22,7 @@
                   </a>
                 </div>
                 <div class="media-body">
-                  <a href="#" class="anchor-username">
+                  <a href="{% url 'profiles:profile' post.user.username %}" class="anchor-username">
                     <h4 class="media-heading">{{ searched_user.get_username }}</h4>
                   </a>
                 </div>

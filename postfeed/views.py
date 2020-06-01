@@ -41,6 +41,9 @@ def all_posts(request):
     friends = request.user.userprofile.friends.all()
     posts = []
 
+    for post in request.user.post.all():
+        posts.append(post)
+
     for friend in friends:
         for post in friend.user.post.all():
             posts.append(post)
