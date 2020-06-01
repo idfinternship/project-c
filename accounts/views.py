@@ -8,11 +8,6 @@ def index(request):
     return render(request, 'accounts/index.html')
 
 
-@login_required
-def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
-
-
 def register(request):
     if request.method == "POST":
         form = RegistrationForm(request.POST)

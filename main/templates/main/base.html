@@ -15,6 +15,11 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
 
 </head>
+  <style>
+  body{
+    background-color: rgb(205,205,205) !important;
+  }
+</style>
 <body style="padding-top: 0px">
 <nav class="navbar navbar-expand-sm bg-dark switch" style="border-radius: 0px">
   <div class="container-fluid">
@@ -54,7 +59,6 @@
   {% endif %}
 
   </ul>
-
   <ul class="nav navbar-nav navbar-right">
     <li class="nav-item">
       {% if  user.is_anonymous %}
@@ -84,5 +88,6 @@
 {% block scripts %}
 
 {% endblock %}
+
 </body>
 </html>
