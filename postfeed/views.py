@@ -37,18 +37,18 @@ def posts(request, username):
     return render(request, 'postfeed/posts.html', context={'searched_user': searched_user, 'posts': posts})
 
 
-#def like_post(request, pk):
-#    user = request.user
-#    post = Post.objects.get(pk=pk)
-#    is_liked = user in post.users_reaction.all()
-#
- #   if is_liked:
-#        post.likes -= 1
-#        post.users_reaction.remove(user)
-  #  else:
-#        post.likes += 1
- ##       post.users_reaction.add(user)
+def all_posts(request):
+    friends = request.user.userprofile.friends.all()
+    posts = []
 
+    for friend in friends:
+        for post in friend.user.post.all():
+            posts.append(post)
+
+    posts.sort(key=lambda x: x.creation_date, reverse=True)
+    return render(request, 'postfeed/friend-posts.html', context={'posts': posts})
+
+@login_required
 def like_post(request):
     user = request.user
     if request.method == 'POST':
