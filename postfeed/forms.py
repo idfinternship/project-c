@@ -7,3 +7,6 @@ class PostCreateForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['body']
+        labels = {
+            'body': 'Express yourself'
+        }
