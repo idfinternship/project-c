@@ -2,6 +2,10 @@
 
 {% block content %}
 
+{% if searched_user.username == user.username %}
+<a href="{% url 'postfeed:create' %}">Create Post</a>
+{% endif %}
+
 {% if posts %}
 {% for post in posts %}
 <div class="container mt-2">
@@ -58,8 +62,5 @@
 {% endfor %}
 {% else %}
     <p>No posts are available.</p>
-{% endif %}
-{% if searched_user.username == user.username %}
-<a href="{% url 'postfeed:create' %}">Create Post</a>
 {% endif %}
 {% endblock %}
