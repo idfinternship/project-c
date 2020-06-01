@@ -211,7 +211,7 @@
                                                 password</a>
                                             <hr/>
                                             <a class="mb-2 mr-2 btn btn-shadow btn-secondary"
-                                               href="{% url 'accounts:delete_acc' %}">Disable account</a>
+                                               href="{% url 'accounts:delete_acc' %}" onclick="return confirm('Are you sure you want to disable your account?')">Disable account</a>
                                         </div>
                                         </div>
                                         </div>
