@@ -16,10 +16,21 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
 
 </head>
-  <style>
-  body{
-    background-color: rgb(205,205,205) !important;
-  }
+<style>
+    body {
+        background-color: rgb(205, 205, 205) !important;
+    }
+
+    .form-control {
+        background-color: #faf8f6 !important;
+    }
+
+    .nav > li > a:hover, .nav > li > a:focus {
+        background-color: #343a40 !important;
+    }
+    .seachbaras {
+    text-align: center;
+    }
 </style>
 <body style="padding-top: 0px">
 <nav class="navbar navbar-expand-sm bg-dark switch" style="border-radius: 0px">
@@ -44,34 +55,43 @@
                 {% if not user.is_anonymous %}
                     <a class="nav-link" href="{% url 'chat:inbox' %}">Chat</a>
                 {% endif %}
-                {% if not user.is_anonymous %}
-                    </li>
-                    <form method="get" action="{% url 'profiles:search' %}" class="form-inline my-2 my-lg-0">
-                        <input name="q" value="{{ request.GET.q }}" placeholder="Search" class="form-control mr-sm-2"/>
-                        <button class="btn btn-primary" type="submit">
-                            Search
-                        </button>
-                    </form>
-                {% endif %}
+            </li>
+                </ul>
 
-  </ul>
-  <ul class="nav navbar-nav navbar-right">
-    <li class="nav-item">
-      {% if  user.is_anonymous %}
-      <a class="nav-link "  href="{% url 'accounts:login_url'  %}">Login In</a>
-      {% endif %}
-    </li>
-    <li class="nav-item">
-      {% if  user.is_anonymous %}
-      <a class="nav-link" href="{% url 'accounts:register_url'  %}">Register</a>
-      {% endif %}
-    </li>
-     <li class="nav-item">
-      {% if not user.is_anonymous %}
-      <a class="nav-link "  href="{% url 'accounts:logout'  %}">Logout</a>
-      {% endif %}
-    </li>
-  </ul>
+    <div style="margin: 0 auto">
+            <div style="display: block;width: 600px;" >
+                {% if not user.is_anonymous %}
+
+                        <form method="get" action="{% url 'profiles:search' %}" class="form-inline">
+                            <input name="q" value="{{ request.GET.q }}" placeholder="Search"
+                                   class="form-control mr-sm-2" style="width: 70%;"/>
+                            <button class="btn btn-shadow btn-secondary" type="submit">
+                                Search
+                            </button>
+                        </form>
+
+                {% endif %}
+            </div>
+    </div>
+
+
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+                {% if  user.is_anonymous %}
+                    <a class="nav-link " href="{% url 'accounts:login_url' %}">Login In</a>
+                {% endif %}
+            </li>
+            <li class="nav-item">
+                {% if  user.is_anonymous %}
+                    <a class="nav-link" href="{% url 'accounts:register_url' %}">Register</a>
+                {% endif %}
+            </li>
+            <li class="nav-item">
+                {% if not user.is_anonymous %}
+                    <a class="nav-link " href="{% url 'accounts:logout' %}">Logout</a>
+                {% endif %}
+            </li>
+        </ul>
     </div>
 </nav>
 

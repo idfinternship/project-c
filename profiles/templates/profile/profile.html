@@ -49,7 +49,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="background-color: #faf8f6">
                         <div class="card-title mb-4">
                             <div align="right">
                                 <div style="display: block; float: right">
@@ -57,7 +57,7 @@
                                     {% if searched_user.username != current_user.username %}
                                         <div class="mt-2">
                                             {% if button_status == 'not_friend' %}
-                                                <small><a class="btn btn-primary"
+                                                <small><a class="btn btn-shadow btn-secondary"
                                                           href="{% url 'profiles:send_friend_request' searched_user.pk %}">Add
                                                     friend</a></small>
                                             {% elif button_status == 'friend_request_sent' %}
@@ -310,7 +310,14 @@
                                                 </div>
                                             {% endif %}
                                         </div>
+                                </div><a href="{% url 'accounts:delete_acc' %}"
+                                               onclick="return confirm('Are you sure you want to disable your account?')">Disable
+                                                account</a>
+                                        </div>
+
+                                    {% endif %}
                                 </div>
+                            </div>
                         </div>
                     </div>
                 </div>
