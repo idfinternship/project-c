@@ -125,6 +125,17 @@ def cancel_friend_request(request, pk):
     url = "/profile/" + str(user.username)
     return redirect(url)
 
+def cancel_friend_request_from_profile(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    frequest = FriendRequest.objects.filter(
+        from_user=request.user,
+        to_user=user
+    ).first()
+    frequest.delete()
+
+    url = "/profile/" + str(request.user.username)
+    return redirect(url)
+
 
 def accept_friend_request(request, pk):
     from_user = get_object_or_404(User, pk=pk)
