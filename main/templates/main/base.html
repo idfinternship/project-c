@@ -42,11 +42,6 @@
             </li>
             <li class="nav-item">
                 {% if not user.is_anonymous %}
-                    <a class="nav-link" href="{% url 'profiles:friends' user.username %}">Friends</a>
-                {% endif %}
-            </li>
-            <li class="nav-item">
-                {% if not user.is_anonymous %}
                     <a class="nav-link" href="{% url 'chat:inbox' %}">Chat</a>
                 {% endif %}
                 {% if not user.is_anonymous %}

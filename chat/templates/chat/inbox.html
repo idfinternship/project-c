@@ -2,47 +2,37 @@
 
 {% block content %}
     <style>
-        #friends {
-            box-sizing: border-box;
-            border-bottom: 2px solid black;
-            font-size: 20px;
-            color: #000000;
-            padding-left: 5px;
+	#dialog-window {
+  	height: 503px;
+		border: 1px black solid;
+		background-color: #faf8f6 !important;
+		border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+	}
+	#scrollable-content {
+  		height: 500px;
+  		overflow: auto;
+	}
+</style>
 
-        }
-
-        #friends-window {
-            height: 703px;
-            border: 1px black solid;
-            width: 300px;
-            background-color: #E9EBEE !important;
-        }
-
-        #scrollable-content-friends {
-            height: 700px;
-            overflow: auto;
-            overflow-x: hidden;
-        }
-    </style>
-    <div class='container'>
-        <div class='row border-bottom my-3 py-3'>
-            <div class='col'>
-                <h1 class='p-0 m-0'>Chat</h1>
-            </div>
-        </div>
-        <div id="friends-window">
-            <div id="scrollable-content-friends">
-                {% for friend in friend_list %}
-                    <a href="{% url 'chat:thread' friend.user.username %}">
-                        <div>
-                            <p id="friends"><img src="{{ friend.user.userprofile.icon.url }}"
-                                                 style="border-radius:15%; width: 40px;"> {{ friend.user.username }}</p>
-                        </div>
-                    </a>
-                {% endfor %}
-            </div>
+<div class='container' style='max-width: 70%;' >
+	
+    <div class='my-3 py-3' style="width:80%; float: right">
+    	
+        <div class='col'>
+            <h1 class='p-0 m-0'>Start Chatting!</h1>
         </div>
     </div>
+		<div id="dialog-window" style="width:80%; float: right; ">
+		</div>
+		<div id="dialog-window" style="width:15%; float: left;">
+  			<div id="scrollable-content" style="overflow: auto; overflow-x: hidden;">
+  				{% include "chat/friendslist.html" with friend_list=user.userprofile.friends.all %}
+  			</div>
+  		</div>
+
+		
+	</div>
 {% endblock %}
 
 {% block script %}
