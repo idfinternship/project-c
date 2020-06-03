@@ -81,7 +81,6 @@ def user_search(request):
     if not query:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     users = User.objects.filter(Q(username__icontains=query))
-
     if not users:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return render(request, 'profile/search_results.html', {'users': users})
