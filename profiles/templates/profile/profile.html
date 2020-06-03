@@ -223,6 +223,7 @@
                                     
                                         <div id="friends-tab" class="tab-pane">
                                             {% if searched_user.username == current_user.username %}
+                                            {% if rec_friend_requests %}
                                             <div style="text-align: center; font-size: 20px; padding: 20px;">Received requests</div>
                                                  {% for r_request in rec_friend_requests %}
                                                             <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3'>
@@ -244,7 +245,8 @@
                                                       </div>
                                             
                                                  {% endfor %}
-
+                                                 {% endif %}
+                                                 {% if sent_friend_requests %}
                                                 <div style="text-align: center; font-size: 20px; padding: 20px;">Sent requests</div>
                                                 <div>
                                                     {% for s_request in sent_friend_requests %}
@@ -268,6 +270,7 @@
                                                         </div>
                                                       {% endfor %}
                                                  </div>
+                                                 {% endif %}
 
                                                  <div style="text-align: center; font-size: 20px; padding: 20px;">Friends</div>
                                                  {% for friend in friend_list %}
