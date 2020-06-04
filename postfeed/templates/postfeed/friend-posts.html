@@ -9,7 +9,7 @@
   <div class="container">
     <div class="box image">
       <div class="box-header">
-        <h3><a href=""><img src="{{ post.user.userprofile.icon.url }}" alt="" />{{ post.user.username }}</a>
+        <h3><a href="{% url 'profiles:profile' post.user.username %}"><img src="{{ post.user.userprofile.icon.url }}" alt="" />{{ post.user.username }}</a>
           <span class="mt-1">{{ post.creation_date }}<i class="fa fa-globe"></i></span>
         </h3>
         {% if user.username == post.user.username %}

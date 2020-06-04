@@ -11,7 +11,7 @@
   <div class="container">
     <div class="box image">
       <div class="box-header">
-        <h3><a href=""><img src="{{ searched_user.userprofile.icon.url }}" alt="" />{{ searched_user.get_username }}</a>
+        <h3><a href="{% url 'profiles:profile' searched_user.username %}"><img src="{{ searched_user.userprofile.icon.url }}" alt="" />{{ searched_user.get_username }}</a>
           <span class="mt-1">{{ post.creation_date }}<i class="fa fa-globe"></i></span>
         </h3>
         {% if user.username == searched_user.username %}
