@@ -9,7 +9,7 @@ from .forms import PostCreateForm
 
 
 @login_required
-def create(request):
+def create(request): #not necessary??
     form = PostCreateForm(request.POST or None)
 
     if form.is_valid():
@@ -31,13 +31,35 @@ def delete_post(request, pk):
 
 @login_required
 def posts(request, username):
+    form = PostCreateForm(request.POST or None)
+    if request.method == 'POST':
+
+        if form.is_valid():
+            body = form.cleaned_data["body"]
+            post = Post(body=body)
+            post.save()
+            request.user.post.add(post)
+
+            return redirect('postfeed:posts', username=request.user.username)
+
     searched_user = User.objects.get(username=username)
     posts = searched_user.post.all().order_by('-creation_date')
 
-    return render(request, 'postfeed/posts.html', context={'searched_user': searched_user, 'posts': posts})
+    return render(request, 'postfeed/posts.html', context={'searched_user': searched_user, 'posts': posts, 'form': form})
 
 
 def all_posts(request):
+    form = PostCreateForm(request.POST or None)
+    if request.method == 'POST':
+
+        if form.is_valid():
+            body = form.cleaned_data["body"]
+            post = Post(body=body)
+            post.save()
+            request.user.post.add(post)
+
+            return redirect('postfeed:home')
+
     friends = request.user.userprofile.friends.all()
     posts = []
 
@@ -49,7 +71,7 @@ def all_posts(request):
             posts.append(post)
 
     posts.sort(key=lambda x: x.creation_date, reverse=True)
-    return render(request, 'postfeed/friend-posts.html', context={'posts': posts})
+    return render(request, 'postfeed/friend-posts.html', context={'posts': posts, 'form': form})
 
 @login_required
 def like_post(request):

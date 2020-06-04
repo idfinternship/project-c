@@ -3,62 +3,58 @@
 {% block content %}
 
 {% if searched_user.username == user.username %}
-<a href="{% url 'postfeed:create' %}">Create Post</a>
+{% include "postfeed/create.html" with form=form %}
 {% endif %}
 
 {% if posts %}
 {% for post in posts %}
-<div class="container mt-2">
-  <div class="col-md-5">
-    <div class="card card-default">
-      <div class="card-body">
-        <section class="post-heading">
-          <div class="row">
-            <div class="col-md-11">
-              <div class="media">
-                <div class="media-left">
-                  <a href="#">
-                    <img class="media-object photo-profile" src="{{ searched_user.userprofile.icon.url }}" width="40" height="40" alt="...">
-                  </a>
-                </div>
-                <div class="media-body">
-                  <a href="{% url 'profiles:profile' post.user.username %}" class="anchor-username">
-                    <h4 class="media-heading">{{ searched_user.get_username }}</h4>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div>
-              {% if user.username == searched_user.username %}
-                <a href="{% url 'postfeed:delete_post' post.pk %} " onclick="return confirm('Are you sure you want to delete this?')"><i class="fas fa-times"></i></a>
-              {% endif %}
-            </div>
-          </div>
-        </section>
-        <section class="post-body">
+  <div class="container">
+    <div class="box image">
+      <div class="box-header">
+        <h3><a href=""><img src="{{ searched_user.userprofile.icon.url }}" alt="" />{{ searched_user.get_username }}</a>
+          <span class="mt-1">{{ post.creation_date }}<i class="fa fa-globe"></i></span>
+        </h3>
+        {% if user.username == searched_user.username %}
+        <span>
+          <a href="{% url 'postfeed:delete_post' post.pk %} " onclick="return confirm('Are you sure you want to delete this?')"><i class="fas fa-times fa-xs"></i></a>
+        </span>
+        {% endif %}
+        <div class="window"><span></span></div>
+      </div>
+      <div class="box-content">
+        <div class="bottom" style="word-wrap: break-word;">
           <p>{{ post.body }}</p>
-        </section>
-        <section class="post-footer">
-          <div class="post-footer-option container">
-              <div style="display:inline-block">{{ post.liked.all.count }} likes</div>
+        </div>
+      </div>
+      <div class="box-likes">
+        <div class="row">
+          <span>{{ post.liked.all.count }}</span>
+          <span>Like this</span>
+        </div>
+      </div>
+      <div class="box-buttons">
+        <div class="row" style="margin-left: 20px;">
               <div style="display:inline-block">
                 <form action="{% url 'postfeed:like_post_self' %}" method="POST" >
                 {% csrf_token %}
                 <input type="hidden" name="post_id" value={{ post.id }} >
                 {% if user not in post.liked.all %}
-                  <button class="btn-success" type="submit">Like</button>
+                  <button class="btn btn-success" type="submit">Like</button>
                 {% else %}
-                  <button class="btn-danger" type="submit">Unlike</button>
+                  <button class="btn btn-danger" type="submit">Unlike</button>
                 {% endif %}
               </input>
             </form>
               </div>
-          </div>
-        </section>
       </div>
     </div>
   </div>
-</div>
+  </div>
+
+
+
+
+
 {% endfor %}
 {% else %}
     <p>No posts are available.</p>

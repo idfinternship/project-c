@@ -10,3 +10,6 @@ class PostCreateForm(forms.ModelForm):
         labels = {
             'body': 'Express yourself'
         }
+        widgets = {
+            'body': forms.Textarea(attrs={'style': 'height: 5em; width: 90%; margin: 0 auto; word-wrap: break-word;'}),
+        }

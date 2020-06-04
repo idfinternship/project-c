@@ -1,4 +1,4 @@
-{% extends 'main/base.html' %}
+
 
 {% block content %}
 <div class="app-container app-theme-white body-tabs-shadow closed-sidebar-mobile">
@@ -10,7 +10,7 @@
                         <div class="modal-body text-center">
                                 <form method="POST"> {% csrf_token %}
                                     {% include 'accounts/basetry.html' with form=form %}
-                                    <input type="submit" value="Save" />
+                                    <input class="btn btn-success" type="submit" value="Post" />
                                 </form>
                             </div>
                         </div>
