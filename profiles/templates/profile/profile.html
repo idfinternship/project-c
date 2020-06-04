@@ -49,7 +49,7 @@
                                 <div style="display: block; float: right">
 
                                     {% if searched_user.username != current_user.username %}
-                                        <div class="mt-2">
+                                        <div class="mt-2 mr-4">
                                             {% if button_status == 'not_friend' %}
                                                 <small><a class="btn btn-shadow btn-secondary"
                                                           href="{% url 'profiles:send_friend_request' searched_user.pk %}">Add
@@ -60,11 +60,12 @@
                                                     request</a></small>
                                             {% endif %}
                                         </div>
-                                        <div class="mt-2">
+                                        <div class="mt-2 mr-4">
+                                            <a class="btn btn-secondary" href="{% url 'postfeed:posts' searched_user.username %}">Posts</a>
                                             {% if searched_user.userprofile in current_user.userprofile.friends.all %}
                                                 <a class="btn btn-secondary"
                                                    href="{% url 'chat:thread' searched_user.username %}">Message</a>
-                                                <a class="btn btn-secondary"
+                                                <a class="btn btn-danger"
                                                    href="{% url 'profiles:delete_friend' searched_user.username %}">Remove
                                                     friend</a>
                                             {% endif %}
