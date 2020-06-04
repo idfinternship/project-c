@@ -13,7 +13,7 @@
             <a href="{% url 'chat:thread' friend.user.username %}">
                 <div>
                     <p id="friends"><img src="{{ friend.user.userprofile.icon.url }}"
-                                         style="border-radius: 100%; height: 38px; width: 38px; border: 1px solid black;"> {{ friend.user.username }}</p>
+                                         style="border-radius: 100%; height: 38px; width: 38px; border: 1px solid #000000;"> {{ friend.user.username }}</p>
                 </div>
             </a>
         {% endfor %}
