@@ -81,7 +81,6 @@ def user_search(request):
     if not query:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     users = User.objects.filter(Q(username__icontains=query))
-
     if not users:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return render(request, 'profile/search_results.html', {'users': users})
@@ -111,7 +110,7 @@ def send_friend_request(request, pk):
         to_user=user
     )
 
-    url = "/profile/" + str(request.user.username) + "/friends"
+    url = "/profile/" + str(user.username)
     return redirect(url)
 
 
@@ -123,7 +122,18 @@ def cancel_friend_request(request, pk):
     ).first()
     frequest.delete()
 
-    url = "/profile/" + str(request.user.username) + "/friends"
+    url = "/profile/" + str(user.username)
+    return redirect(url)
+
+def cancel_friend_request_from_profile(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    frequest = FriendRequest.objects.filter(
+        from_user=request.user,
+        to_user=user
+    ).first()
+    frequest.delete()
+
+    url = "/profile/" + str(request.user.username)
     return redirect(url)
 
 
@@ -136,7 +146,7 @@ def accept_friend_request(request, pk):
     user2.userprofile.friends.add(user1.userprofile)
     frequest.delete()
 
-    url = "/profile/" + str(request.user.username) + "/friends"
+    url = "/profile/" + str(user1.username)
     return redirect(url)
 
 
@@ -145,7 +155,7 @@ def delete_friend_request(request, pk):
     frequest = FriendRequest.objects.filter(from_user=from_user, to_user=request.user).first()
     frequest.delete()
 
-    url = "/profile/" + str(request.user.username) + "/friends"
+    url = "/profile/" + str(request.user.username)
     return redirect(url)
 
 
@@ -156,7 +166,7 @@ def delete_friend(request, username):
     current_user.userprofile.friends.remove(friend_user.userprofile)
     friend_user.userprofile.friends.remove(current_user.userprofile)
 
-    url = "/profile/" + str(request.user.username) + "/friends"
+    url = "/profile/" + str(friend_user.username)
     return redirect(url)
 
 

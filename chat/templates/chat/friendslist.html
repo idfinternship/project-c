@@ -1,11 +1,10 @@
 {% block content %}
     <style>
         #friends {
-            box-sizing: border-box;
-            border-bottom: 2px solid black;
             font-size: 20px;
             color: #000000;
             padding-left: 5px;
+            padding-top: 5px
         }
     </style>
 
@@ -14,7 +13,7 @@
             <a href="{% url 'chat:thread' friend.user.username %}">
                 <div>
                     <p id="friends"><img src="{{ friend.user.userprofile.icon.url }}"
-                                         style="border-radius:15%; width: 40px;"> {{ friend.user.username }}</p>
+                                         style="border-radius: 100%; height: 38px; width: 38px; border: 1px solid black;"> {{ friend.user.username }}</p>
                 </div>
             </a>
         {% endfor %}

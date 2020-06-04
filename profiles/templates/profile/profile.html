@@ -35,8 +35,12 @@
             -ms-transform: translate(-50%, -50%);
             text-align: center;
         }
-
-
+        #image-pic{
+            border-radius: 100%;
+            width: 60px;
+            height: 60px;
+            border: 1px solid black;
+        }
     </style>
 
 
@@ -45,20 +49,15 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="background-color: #faf8f6">
                         <div class="card-title mb-4">
                             <div align="right">
                                 <div style="display: block; float: right">
 
                                     {% if searched_user.username != current_user.username %}
                                         <div class="mt-2">
-                                            <a class="btn btn-secondary"
-                                               href="{% url 'profiles:friends' searched_user.username %}">{{ searched_user.username }}'s
-                                                friend list</a>
-                                        </div>
-                                        <div class="mt-2">
                                             {% if button_status == 'not_friend' %}
-                                                <small><a class="btn btn-primary"
+                                                <small><a class="btn btn-shadow btn-secondary"
                                                           href="{% url 'profiles:send_friend_request' searched_user.pk %}">Add
                                                     friend</a></small>
                                             {% elif button_status == 'friend_request_sent' %}
@@ -107,6 +106,10 @@
                                             Settings<span
                                                 class="menu-active"></span> </a></li>
                                     {% endif %}
+                                    <li class="active"><a data-toggle="tab" href="#friends-tab"
+                                                              class="mb-2 mr-2 btn btn-shadow btn-secondary">
+                                            Friends<span
+                                                class="menu-active"></span> </a></li>
                                 </ul>
 
                                 <div class="tab-content">
@@ -213,9 +216,110 @@
                                             <a class="mb-2 mr-2 btn btn-shadow btn-secondary"
                                                href="{% url 'accounts:delete_acc' %}" onclick="return confirm('Are you sure you want to disable your account?')">Disable account</a>
                                         </div>
-                                        </div>
-                                        </div>
+                                        
                                     {% endif %}
+
+                                    {# FRIENDS BELOW #}
+                                    
+                                        <div id="friends-tab" class="tab-pane">
+                                            {% if searched_user.username == current_user.username %}
+                                            {% if rec_friend_requests %}
+                                            <div style="text-align: center; font-size: 20px; padding: 20px;">Received requests</div>
+                                                 {% for r_request in rec_friend_requests %}
+                                                            <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3'>
+                                                                <a href="{% url 'profiles:profile' r_request.from_user.username %}" style="color: #111; font-size: 15px;">
+                                                                    <img id="image-pic"
+                                                                         src="{{  r_request.from_user.userprofile.icon.url }}"/> 
+                                                                         {% if r_request.from_user.first_name != '' or r_request.from_user.last_name != '' %}
+                                                                            {{  r_request.from_user.first_name }} {{  r_request.from_user.last_name }}
+                                                                        {% else %}
+                                                                            {{ r_request.from_user.username }}
+                                                                    {% endif %}
+                                                                </a>
+                                                            </div>
+                                                      <div style="border: 1px solid black; border-radius: 5px; width: 25%; margin-top: -5px;" class="p-1 mb-2">
+                                                           <div class="text-center">
+                                                                <small><a class="btn btn-primary" href="{% url 'profiles:accept_friend_request' r_request.from_user.pk %}">Accept</a></small>
+                                                                <small><a class="btn btn-warning" href="{% url 'profiles:delete_friend_request' r_request.from_user.pk %}">Decline</a></small>
+                                                           </div>
+                                                      </div>
+                                            
+                                                 {% endfor %}
+                                                 {% endif %}
+                                                 {% if sent_friend_requests %}
+                                                <div style="text-align: center; font-size: 20px; padding: 20px;">Sent requests</div>
+                                                <div>
+                                                    {% for s_request in sent_friend_requests %}
+                                                        <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3' style="padding-top: 5px;">
+                                                            <a href="{% url 'profiles:profile' s_request.to_user.username %}" style="color: #111; font-size: 15px;">
+                                                                <img id="image-pic"
+                                                                    src="{{ s_request.to_user.userprofile.icon.url }}"/> 
+                                                                    {% if s_request.to_user.first_name != '' or s_request.to_user.last_name != '' %}
+                                                                        {{ s_request.to_user.first_name }} {{ s_request.to_user.last_name }}
+                                                                    {% else %}
+                                                                        {{ s_request.to_user.username }}
+                                                                    {% endif %}
+                                                            </a>
+                                                        </div>
+                                                        <div style="border: 1px solid black; border-radius: 5px; width: 25%; margin-top: -5px;" class="p-1 mb-2">
+                                                            <div class="text-center">
+                                                                <small><a class="btn btn-warning"
+                                                                        href="{% url 'profiles:cancel_friend_request_from_profile' s_request.to_user.pk %}">Cancel
+                                                    request</a></small>
+                                                            </div>
+                                                        </div>
+                                                      {% endfor %}
+                                                 </div>
+                                                 {% endif %}
+
+                                                 <div style="text-align: center; font-size: 20px; padding: 20px;">Friends</div>
+                                                 {% for friend in friend_list %}
+                                                 <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3'>
+                                                                <a style="color: #111; font-size: 15px;" href="{% url 'profiles:profile' friend.user.username %}">
+                                                                    <img id="image-pic"
+                                                                         src="{{ friend.user.userprofile.icon.url }}"/> 
+                                                                         {% if friend.user.first_name != '' or friend.user.last_name != '' %}
+                                                                            {{ friend.user.first_name }} {{ friend.user.last_name }}
+                                                                         {% else %}
+                                                                            {{ friend.user.username }}
+                                                                         {% endif %}
+                                                                </a>
+                                                            </div>
+                                                 {% endfor %}
+                                            {% else %}
+                                            <div style="text-align: center; font-size: 20px; padding: 20px;">Friends</div>
+                                                <div>
+                                                {% for friend in friend_list %}
+                                                     
+                                                        <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3'>
+                                                          {% if current_user.username == friend.user.username %}
+                                                               <a style="color: #111; font-size: 15px;" href="{% url 'profiles:profile' friend.user.username %}"><img id="image-pic"
+                                                                         src="{{ friend.user.userprofile.icon.url }}"/> 
+                                                                         {% if friend.user.first_name != '' or friend.user.last_name != '' %}
+                                                                            {{ friend.user.first_name }} {{ friend.user.last_name }} (You)</a>
+                                                                         {% else %}
+                                                                            {{ friend.user.username }}
+                                                                         {% endif %}
+                                                          {% else %}
+                                                               <a style="color: #111; font-size: 15px;" href="{% url 'profiles:profile' friend.user.username %}"><img id="image-pic"
+                                                                         src="{{ friend.user.userprofile.icon.url }}"/> 
+                                                                         {% if friend.user.first_name != '' or friend.user.last_name != '' %}
+                                                                            {{ friend.user.first_name }} {{ friend.user.last_name }}</a>
+                                                                        {% else %}
+                                                                            {{ friend.user.username }}
+                                                                        {% endif %}
+                                                          {% endif %}
+                                                     </div>
+                                                 {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                </div>
+                                        </div>
+
+                                  
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

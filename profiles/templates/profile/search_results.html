@@ -29,35 +29,24 @@
                     <div class="p-0 card-body">
                         <li class="list-group-item">
                             <div class="widget-content p-0">
-                                <div class="widget-content-wrapper" style="height: 120px; overflow: auto">
+                                <div class="widget-content-wrapper" style="height: auto; overflow: auto">
                                     <div class="widget-content-left flex2">
-                                        {% if user.first_name == '' %}
-                                            <div class="widget-heading">Name : Unknown</div>
-                                        {% else %}
+                                        {% if user.first_name != '' %}
                                             <div class="widget-heading">Name : {{ user.first_name }}</div>
                                         {% endif %}
-
-                                        {% if user.last_name == '' %}
-                                            <div class="widget-heading">Last Name : Unknown</div>
-                                        {% else %}
+                                        {% if user.last_name != '' %}
                                             <div class="widget-heading">Last Name : {{ user.last_name }}</div>
                                         {% endif %}
 
-                                        {% if user.email == '' %}
-                                            <div class="widget-heading">Email : Unknown</div>
-                                        {% else %}
+                                        {% if user.email != '' %}
                                             <div class="widget-heading">Email : {{ user.email }}</div>
                                         {% endif %}
 
-                                        {% if user.userprofile.age == None %}
-                                            <div class="widget-heading">Age : Unknown</div>
-                                        {% else %}
+                                        {% if user.userprofile.age != None %}
                                             <div class="widget-heading">Age : {{ user.userprofile.age }}</div>
                                         {% endif %}
 
-                                        {% if user.userprofile.gender == '' %}
-                                            <div class="widget-heading">Gender : Unknown</div>
-                                        {% else %}
+                                        {% if user.userprofile.gender != '' %}
                                             <div class="widget-heading">Gender : {{ user.userprofile.gender }}</div>
                                         {% endif %}
 
